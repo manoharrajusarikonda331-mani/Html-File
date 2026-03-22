@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAGANAR - Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            margin-bottom: 30px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @keyframes borderGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .brand-symbols {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            animation: symbolsFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes symbolsFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .symbol {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 107, 107, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            color: #ff6b6b;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.2),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1),
+                0 0 20px rgba(255, 107, 107, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: symbolElegant 8s ease-in-out infinite;
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .symbol::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            animation: shine 3s linear infinite;
+            transform: rotate(45deg);
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .symbol:hover {
+            transform: scale(1.15) rotateY(15deg) rotateX(10deg);
+            box-shadow: 
+                0 16px 32px rgba(0, 0, 0, 0.3),
+                inset 0 4px 8px rgba(255, 255, 255, 0.2),
+                0 0 40px rgba(255, 107, 107, 0.4);
+            border-color: rgba(255, 107, 107, 0.8);
+        }
+
+        @keyframes symbolElegant {
+            0% { transform: rotateY(0deg) scale(1); }
+            50% { transform: rotateY(180deg) scale(1.1); }
+            100% { transform: rotateY(360deg) scale(1); }
+        }
+
+        /* Complex rotation sequence: individual then group rotation every 10 seconds */
+        .symbol:nth-child(1) {
+            animation: complexRotation1 10s ease-in-out infinite;
+        }
+
+        .symbol:nth-child(2) {
+            animation: complexRotation2 10s ease-in-out infinite;
+        }
+
+        .symbol:nth-child(3) {
+            animation: complexRotation3 10s ease-in-out infinite;
+        }
+
+        @keyframes complexRotation1 {
+            0% { transform: rotateY(0deg) scale(1); }
+            33.3% { transform: rotateY(360deg) scale(1); }
+            33.4% { transform: rotateY(360deg) scale(1); }
+            66.6% { transform: rotateY(360deg) scale(1); }
+            66.7% { transform: rotateY(720deg) scale(1); }
+            100% { transform: rotateY(720deg) scale(1); }
+        }
+
+        @keyframes complexRotation2 {
+            0% { transform: rotateY(0deg) scale(1); }
+            33.3% { transform: rotateY(0deg) scale(1); }
+            35% { transform: rotateY(60deg) scale(1); }
+            40% { transform: rotateY(120deg) scale(1); }
+            45% { transform: rotateY(180deg) scale(1); }
+            50% { transform: rotateY(240deg) scale(1); }
+            55% { transform: rotateY(300deg) scale(1); }
+            60% { transform: rotateY(360deg) scale(1); }
+            66.6% { transform: rotateY(360deg) scale(1); }
+            100% { transform: rotateY(360deg) scale(1); }
+        }
+
+        @keyframes complexRotation3 {
+            0% { transform: rotateZ(0deg) scale(1); }
+            66.6% { transform: rotateZ(0deg) scale(1); }
+            66.7% { transform: rotateZ(360deg) scale(1); }
+            100% { transform: rotateZ(720deg) scale(1); }
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .logo svg {
+            width: 340px;
+            height: 73px;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px) rotateX(0deg) scale(1); }
+            50% { transform: translateY(-8px) rotateX(3deg) scale(1.02); }
+        }
+
+        .brand-name {
+            font-size: 68px;
+            font-weight: 900;
+            font-family: 'Trebuchet MS', 'Arial Black', sans-serif;
+            color: #0a0a0a;
+            margin-bottom: 35px;
+            margin-top: 20px;
+            letter-spacing: 4px;
+            text-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.2),
+                0 8px 16px rgba(255, 107, 107, 0.1),
+                2px 2px 4px rgba(255, 255, 255, 0.15);
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShine 3s infinite;
+        }
+
+        @keyframes textShine {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.1); }
+        }
+
+        .brand-name::after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b 0%, #ffa502 50%, #ff6b6b 100%);
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            animation: slideIn 1.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { width: 0; opacity: 0; }
+            to { width: 85%; opacity: 1; }
+        }
+
+        .brand-name::before {
+            content: '◆';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #ff6b6b;
+            animation: diamondPulse 2s infinite;
+        }
+
+        @keyframes diamondPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+            50% { transform: translateX(-50%) scale(1.3); opacity: 1; }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: buttonGlow 2s infinite alternate;
+        }
+
+        @keyframes buttonGlow {
+            from { box-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
+            to { box-shadow: 0 0 30px rgba(255, 107, 107, 0.8); }
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    <div class="container">
+        <div class="logo">
+            <svg viewBox="0 0 600 85" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#ffa502;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#d63031;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Main text with gradient -->
+                <text x="300" y="43" font-family="'Georgia', 'Times New Roman', serif" font-size="90" font-weight="bold" fill="url(#mainGrad)" letter-spacing="6" text-anchor="middle">HAGANAR</text>
+            </svg>
+        </div>
+        
+        <div class="brand-symbols">
+            <div class="symbol">∞</div>
+            <div class="symbol">🌐</div>
+            <div class="symbol">⚡</div>
+        </div>
+        
+        <div class="brand-name">HAGANAR</div>
+        <form id="loginForm">
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        window.addEventListener('load', function() {
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                window.location.href = 'welcome.html';
+            }
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = Math.random() * 4 + 6 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Form submission with validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = this.querySelector('input[type="text"]').value.trim();
+            const password = this.querySelector('input[type="password"]').value.trim();
+            const button = this.querySelector('button');
+            
+            // Basic validation
+            if (!username || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (username.length < 3) {
+                alert('Username must be at least 3 characters');
+                return;
+            }
+            
+            if (password.length < 4) {
+                alert('Password must be at least 4 characters');
+                return;
+            }
+            
+            button.textContent = 'Logging in...';
+            button.style.animation = 'none';
+            button.disabled = true;
+            
+            // Simulate authentication delay
+            setTimeout(() => {
+                button.textContent = 'Success!';
+                button.style.background = 'linear-gradient(135deg, #4ecdc4, #44a08d)';
+                
+                // Store login state and user info in session
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('username', username);
+                sessionStorage.setItem('loginTime', new Date().getTime());
+                
+                setTimeout(() => {
+                    // Redirect to welcome page
+                    window.location.href = 'welcome.html';
+                }, 1000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

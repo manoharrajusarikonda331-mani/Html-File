@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to HAGANAR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            /* Locked to exactly the height of the screen */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Hidden overflow prevents scrolling for a true full-frame feel */
+            overflow: hidden; 
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.8) 0%, rgba(255, 165, 2, 0.4) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .particle-1 { width: 80px; height: 80px; top: 10%; left: 10%; animation: floatParticle 20s infinite ease-in-out; }
+        .particle-2 { width: 60px; height: 60px; top: 60%; right: 15%; animation: floatParticle 25s infinite ease-in-out reverse; }
+        .particle-3 { width: 100px; height: 100px; bottom: 10%; left: 50%; animation: floatParticle 30s infinite ease-in-out; }
+        .particle-4 { width: 50px; height: 50px; top: 30%; right: 10%; animation: floatParticle 22s infinite ease-in-out reverse; }
+
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+            25% { transform: translateY(-50px) translateX(30px); opacity: 0.5; }
+            50% { transform: translateY(-100px) translateX(-30px); opacity: 0.3; }
+            75% { transform: translateY(-50px) translateX(50px); opacity: 0.5; }
+        }
+
+        /* Main content container - Adjusted for Full Frame */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            /* Size adjustments to create a large centered frame */
+            width: 90vw;
+            height: 85vh;
+            max-width: 1200px;
+            /* Internal centering so items don't stick to the top */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 107, 107, 0.2);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 50px rgba(255, 107, 107, 0.15);
+            animation: containerGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes containerGlow {
+            0%, 100% { box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 50px rgba(255, 107, 107, 0.15);
+            }
+            50% { box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 80px rgba(255, 107, 107, 0.3);
+            }
+        }
+
+        /* Welcome text styling */
+        .welcome-text {
+            font-size: 50px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            animation: welcomeSlideIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .welcome-line-1 {
+            background: linear-gradient(90deg, #ff6b6b 0%, #ffa502 50%, #d63031 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            animation: textGlow 3s ease-in-out infinite;
+        }
+
+        .welcome-line-2 {
+            background: linear-gradient(90deg, #ffa502 0%, #ff6b6b 50%, #ffa502 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            animation: textGlow 3s ease-in-out infinite reverse;
+            animation-delay: 0.3s;
+        }
+
+        .emoji-icon {
+            font-size: 70px;
+            display: inline-block;
+            margin-left: 12px;
+            animation: emojiRotate 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5));
+        }
+
+        @keyframes textGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(255, 107, 107, 0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.7)); }
+        }
+
+        @keyframes emojiRotate {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        @keyframes welcomeSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Separator line with gradient */
+        .separator {
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ff6b6b, #ffa502, transparent);
+            margin: 20px auto;
+            border-radius: 2px;
+            animation: separatorExpand 1.5s ease-in-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes separatorExpand {
+            from { width: 0; opacity: 0; }
+            to { width: 120px; opacity: 1; }
+        }
+
+        /* Description text */
+        .description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            margin-bottom: 30px;
+            max-width: 800px;
+            letter-spacing: 1px;
+            animation: describeSlideIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+            opacity: 0;
+        }
+
+        @keyframes describeSlideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Feature boxes */
+        .features {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: featuresSlideIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
+            opacity: 0;
+        }
+
+        @keyframes featuresSlideIn {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feature-card {
+            padding: 22px;
+            background: rgba(255, 107, 107, 0.08);
+            border: 2px solid rgba(255, 107, 107, 0.3);
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            animation: cardShine 4s linear infinite;
+        }
+
+        @keyframes cardShine {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 107, 107, 0.15);
+            border-color: rgba(255, 165, 2, 0.6);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            display: block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        .feature-card:nth-child(1) .feature-icon { animation-delay: 0s; }
+        .feature-card:nth-child(2) .feature-icon { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) .feature-icon { animation-delay: 0.4s; }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .feature-title {
+            font-size: 16px;
+            color: #ffa502;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.5;
+        }
+
+        /* Action buttons */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            animation: buttonsSlideIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
+            opacity: 0;
+        }
+
+        @keyframes buttonsSlideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            padding: 14px 35px;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 1.5px;
+            font-family: 'Georgia', serif;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa502 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 45px rgba(255, 107, 107, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffa502;
+            border: 2px solid #ffa502;
+            box-shadow: 0 0 20px rgba(255, 165, 2, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 165, 2, 0.1);
+            box-shadow: 0 0 30px rgba(255, 165, 2, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative elements */
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .deco-1 { width: 400px; height: 400px; top: -100px; left: -100px; border: 3px solid #ff6b6b; }
+        .deco-2 { width: 300px; height: 300px; bottom: -150px; right: -150px; border: 3px solid #ffa502; }
+
+        /* Responsive design adjustments */
+        @media (max-width: 768px) {
+            body {
+                overflow: auto; /* Allow scrolling on smaller screens if content gets cramped */
+                height: auto;
+                min-height: 100vh;
+            }
+            .container {
+                width: 95vw;
+                height: auto;
+                min-height: 90vh;
+                padding: 40px 20px;
+                margin: 20px 0;
+            }
+
+            .welcome-text {
+                font-size: 38px;
+                letter-spacing: 2px;
+            }
+
+            .emoji-icon {
+                font-size: 50px;
+                margin-left: 10px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Loading animation */
+        .loading-dots {
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .loading-dots span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffa502;
+            margin: 0 3px;
+            animation: loadingBounce 1.4s infinite;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: 0s; }
+        .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes loadingBounce {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+    </div>
+
+    <div class="decoration-circle deco-1"></div>
+    <div class="decoration-circle deco-2"></div>
+
+    <div class="container">
+        <div class="welcome-text">
+            <span class="welcome-line-1">WELCOME TO</span><br>
+            <span class="welcome-line-2">THE HAGANAR WEB-PAGE</span>
+            <span class="emoji-icon">🕸️</span>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="description">
+            Embark on a journey of innovation and excellence. Discover limitless possibilities with our next-generation platform.
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <div class="feature-title">LIGHTNING FAST</div>
+                <div class="feature-text">Experience unprecedented speed and performance with our advanced infrastructure.</div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🔒</span>
+                <div class="feature-title">SECURE</div>
+                <div class="feature-text">Your data is protected with military-grade encryption and advanced security protocols.</div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🌟</span>
+                <div class="feature-title">PREMIUM</div>
+                <div class="feature-text">Access exclusive features and premium content tailored to your needs.</div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="exploreMore()">
+                <span>Explore More</span>
+            </button>
+            <button class="btn btn-secondary" onclick="logout()">
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        window.addEventListener('load', () => {
+            if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+                // Redirect to login if not authenticated
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Display username in welcome message
+            const username = sessionStorage.getItem('username');
+            const loginTime = new Date(parseInt(sessionStorage.getItem('loginTime')));
+            const timeString = loginTime.toLocaleTimeString();
+            
+            // Add welcome message with username
+            console.log('User logged in:', username, 'at', timeString);
+            document.body.style.opacity = '1';
+        });
+
+        // Button functions
+        function exploreMore() {
+            const btn = event.target.closest('.btn-primary');
+            btn.innerHTML = '<span>Loading<span class="loading-dots"><span></span><span></span><span></span></span></span>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                const username = sessionStorage.getItem('username');
+                alert('Welcome ' + username + '! You are now accessing the main HAGANAR platform. More features coming soon.');
+                btn.innerHTML = '<span>Explore More</span>';
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear session data
+                sessionStorage.removeItem('isLoggedIn');
+                sessionStorage.removeItem('username');
+                sessionStorage.removeItem('loginTime');
+                
+                // Redirect to login page
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Add interactive particle click effect
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.btn')) return;
+            
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            const clickEffect = document.createElement('div');
+            clickEffect.style.position = 'fixed';
+            clickEffect.style.left = x + 'px';
+            clickEffect.style.top = y + 'px';
+            clickEffect.style.width = '20px';
+            clickEffect.style.height = '20px';
+            clickEffect.style.background = 'radial-gradient(circle, rgba(255, 107, 107, 0.8), transparent)';
+            clickEffect.style.borderRadius = '50%';
+            clickEffect.style.pointerEvents = 'none';
+            clickEffect.style.animation = 'clickRipple 0.8s ease-out forwards';
+            clickEffect.style.zIndex = '5';
+            
+            document.body.appendChild(clickEffect);
+            
+            setTimeout(() => clickEffect.remove(), 800);
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes clickRipple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
