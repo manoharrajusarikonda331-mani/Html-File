@@ -284,10 +284,32 @@
             to { box-shadow: 0 0 30px rgba(255, 107, 107, 0.8); }
         }
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.6);
-        }
+        /* Replace line 287-290 with this */
+button:hover {
+    transform: translateY(-3px) scale(1.05);
+    background: linear-gradient(135deg, #ffaa33, #ff6b6b); 
+    box-shadow: 0 10px 25px rgba(255, 107, 107, 0.6);
+    cursor: pointer;
+}
+
+/* Add these new styles right after the button:hover closing brace } */
+.input-group {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 15px;
+    top: 25px; 
+    cursor: pointer;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 10;
+}
 
         .particles {
             position: absolute;
@@ -342,11 +364,16 @@
         </div>
         
         <div class="brand-name">HAGANAR</div>
-        <form id="loginForm">
-            <input type="text" placeholder="Username" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+     <form id="loginForm">
+    <input type="text" placeholder="Username" required>
+    
+    <div class="input-group">
+        <input type="password" id="password" placeholder="Password" required>
+        <span id="togglePassword" class="eye-icon">👁️</span>
+    </div>
+
+    <button type="submit">Login</button>
+</form>
     </div>
 
     <script>
@@ -418,6 +445,15 @@
                 }, 1000);
             }, 1500);
         });
+       // --- Password Visibility Toggle Logic ---
+const togglePassword = document.querySelector('#togglePassword');
+const passwordField = document.querySelector('#password');
+
+togglePassword.addEventListener('click', function () {
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+    this.textContent = type === 'password' ? '👁️' : '🙈';
+}); 
     </script>
 </body>
 </html>
