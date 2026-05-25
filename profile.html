@@ -147,11 +147,126 @@
             transition: all 0.3s ease;
         }
 
-        .logout-btn:hover { 
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
+        /* 1. Base Body styling with a modern dark gradient background */
+body {
+    background: #0f172a; /* Deep slate dark mode */
+    color: #f8fafc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 2. Vibrant background glow spheres that float behind the glass */
+.bg-glows {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+.glow-sphere {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+}
+.sphere-1 {
+    width: 300px;
+    height: 300px;
+    background: #3b82f6; /* Vibrant Blue */
+    top: 20%;
+    left: 25%;
+}
+.sphere-2 {
+    width: 400px;
+    height: 400px;
+    background: #a855f7; /* Vibrant Purple */
+    bottom: 15%;
+    right: 20%;
+}
+
+/* 3. The Core Glassmorphism Container */
+.profile-container {
+    background: rgba(255, 255, 255, 0.07); /* Ultra-transparent white */
+    backdrop-filter: blur(16px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Clean glassy border */
+    border-radius: 24px;
+    padding: 40px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* 4. Avatar and Typography */
+.avatar-box {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+h2 {
+    margin: 10px 0 5px 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+.role {
+    color: #94a3b8; /* Subtle text color */
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* 5. Info Panel Layout inside the glass */
+.info-panel {
+    background: rgba(0, 0, 0, 0.2); /* Slightly darker backing for contrast */
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.info-item:last-child {
+    border-bottom: none;
+}
+.info-item strong {
+    color: #cbd5e1;
+}
+.info-item span {
+    color: #38bdf8; /* Highlighted variable values */
+    font-family: 'Courier New', Courier, monospace; /* Clean node/dev text style */
+}
+
+/* 6. Premium Interactive Glass Button */
+.logout-btn {
+    width: 100%;
+    background: rgba(239, 68, 68, 0.2); /* Transparent red tint */
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+    transform: translateY(-2px);
+}
     </style>
 </head>
 <body>
