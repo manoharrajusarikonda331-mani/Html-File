@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAGANAR - Secure Profile Dashboard</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Ambient glowing background shapes to match the login screen */
+        .bg-glows {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .glow-sphere {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.4) 0%, rgba(127, 0, 255, 0.1) 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+        }
+        .sphere-1 { width: 300px; height: 300px; top: -5%; left: -5%; }
+        .sphere-2 { width: 400px; height: 400px; bottom: -10%; right: -5%; }
+
+        /* Professional Glassmorphism Profile Card Container */
+        .profile-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            color: #fff;
+            animation: cardFadeIn 0.8s ease-out;
+        }
+
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modern Avatar Design */
+        .avatar-box {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 36px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 { 
+            font-weight: 600;
+            font-size: 26px;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px; 
+        }
+
+        p.role { 
+            color: #b8b5ff; 
+            font-size: 14px; 
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px; 
+        }
+
+        /* Enterprise-Style Metrics Dashboard Panel */
+        .info-panel {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .info-item { 
+            margin-bottom: 12px; 
+            font-size: 14px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 8px;
+        }
+        
+        .info-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-item strong { 
+            color: rgba(255, 255, 255, 0.6); 
+            font-weight: 500;
+        }
+
+        .info-item span { 
+            color: #ffffff; 
+            font-weight: 600;
+        }
+
+        /* Secure Action Button */
+        .logout-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover { 
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glows">
+        <div class="glow-sphere sphere-1"></div>
+        <div class="glow-sphere sphere-2"></div>
+    </div>
+
+    <div class="profile-container">
+        <div class="avatar-box">👨‍💻</div>
+        <h2>Sarikonda Manohar Raju</h2>
+        <p class="role">Lead Platform Engineer & Founder</p>
+        
+        <div class="info-panel">
+            <div class="info-item"><strong>Account Status:</strong> <span>Verified Security</span></div>
+            <div class="info-item"><strong>Clearance Level:</strong> <span>Administrator</span></div>
+            <div class="info-item"><strong>Active Deployment:</strong> <span>HAGANAR Main Node</span></div>
+            <div class="info-item"><strong>Environment Node:</strong> <span>Localhost:5500</span></div>
+        </div>
+
+        <button class="logout-btn" onclick="window.location.href='welcome.html'">Secure Log Out</button>
+    </div>
+
+</body>
+</html>
