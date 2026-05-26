@@ -380,17 +380,19 @@
             alert('Welcome ' + currentUser + '! You are now accessing the main HAGANAR platform. More features coming soon.');
         }
 
-        // 2. FULLY FUNCTIONAL SECURE LOGOUT SYSTEM
-        function logout() {
-            // Triggers the exact verification prompt layout shown in your screenshot
-            if (confirm('Are you sure you want to logout?')) {
-                // Clear out active temporary credentials
-                sessionStorage.removeItem('haganar_user');
-                
-                // Forces system routing refresh right back to the root node welcome deck
-                window.location.href = 'welcome.html';
-            }
-        }
+       // 2. FULLY FUNCTIONAL SECURE LOGOUT SYSTEM
+function logout() {
+    // Triggers the exact verification prompt layout shown in your screenshot
+    if (confirm('Are you sure you want to logout?')) {
+        // Clear out active temporary credentials
+        sessionStorage.removeItem('haganar_user');
+
+        // CHANGE THIS LINE FROM 'welcome.html' TO 'index.html'
+        window.location.href = 'index.html';
+    }
+    // If they click 'Cancel', the function ends here, doing absolutely nothing!
+    // The user safely stays on the welcome.html page.
+}
     </script>
 </body>
 </html>
