@@ -359,7 +359,7 @@
         <div class="button-group">
             <button class="explore-btn" onclick="exploreMore()">EXPLORE MORE</button>
             <button class="profile-btn" onclick="window.location.href='profile.html'">VIEW PROFILE</button>
-            <button class="logout-btn" onclick="logout()">LOGOUT</button>
+            <button class="logout-btn" onclick="logout(event)">LOGOUT</button>
         </div>
 
     </div>
@@ -383,14 +383,17 @@
             alert('Welcome ' + currentUser + '! You are now accessing the main HAGANAR platform. More features coming soon.');
         }
 
-       // 2. FULLY FUNCTIONAL SECURE LOGOUT SYSTEM
-function logout() {
+     // 2. FULLY FUNCTIONAL SECURE LOGOUT SYSTEM
+function logout(event) {
+    // Prevents the browser from reloading before the choice is made
+    if (event) event.preventDefault(); 
+
     // Triggers the exact verification prompt layout shown in your screenshot
     if (confirm('Are you sure you want to logout?')) {
         // Clear out active temporary credentials
         sessionStorage.removeItem('haganar_user');
 
-        // CHANGE THIS LINE FROM 'welcome.html' TO 'index.html'
+        // Forces the window to jump straight backward to the login page
         window.location.href = 'index.html';
     }
     // If they click 'Cancel', the function ends here, doing absolutely nothing!
