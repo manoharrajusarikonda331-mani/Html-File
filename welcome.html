@@ -19,17 +19,19 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            color: #ffffff;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
+       body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    color: #ffffff;
+    min-height: 100vh;      /* CHANGE height: 100vh; to min-height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;       /* CHANGE overflow: hidden; to overflow-y: auto; */
+    position: relative;
+    padding: 40px 20px;     /* ADD padding so content doesn't hug screen edges when zoomed */
+    box-sizing: border-box;
+}
 
         /* Frosted Glass Shards Background Graphics (Replacing Bubble Graphics) */
         .glass-shapes {
@@ -63,25 +65,26 @@
         }
 
         /* Main Content Frame Layout Framework */
-        .container {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 30px 40px;
-            width: 92vw;
-            height: 90vh;
-            max-width: 1100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
+.container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 30px 40px;
+    width: 92vw;
+    max-width: 1100px;
+    min-height: 85vh;       /* Changed from fixed height to flexible min-height */
+    margin: auto;           /* Added to keep the box centered when scaling */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
 
         /* Professional Header Design */
         .welcome-text {
