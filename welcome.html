@@ -300,6 +300,10 @@
             color: #ff6b6b;
             background: rgba(255, 107, 107, 0.05);
         }
+
+        .button-group a {
+    text-decoration: none !important;
+}
     </style>
 </head>
 <body>
@@ -356,11 +360,11 @@
             </div>
         </div>
 
-        <div class="button-group">
-            <button class="explore-btn" onclick="exploreMore()">EXPLORE MORE</button>
-            <button class="profile-btn" onclick="window.location.href='profile.html'">VIEW PROFILE</button>
-            <button class="logout-btn" onclick="logout(event)">LOGOUT</button>
-        </div>
+       <div class="button-group">
+    <a href="#" class="explore-btn" onclick="exploreMore()">EXPLORE MORE</a>
+    <a href="profile.html" class="profile-btn">VIEW PROFILE</a>
+    <a href="index.html" class="logout-btn" onclick="logout(event)">LOGOUT</a>
+</div>
 
     </div>
 
