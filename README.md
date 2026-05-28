@@ -19,4 +19,4 @@ A modern, responsive, and visually striking login interface featuring **Glassmor
 ## ✍️ Author
 * **Mani (Sarikonda Manohar Raju)**
 * B.Tech CSE Student | Global Institute of Engineering & Technology
-
+*
