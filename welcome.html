@@ -304,6 +304,92 @@
         .button-group a {
     text-decoration: none !important;
 }
+
+/* HAGANAR Glassmorphism Chat UI Layout */
+.chat-container {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.chat-box {
+    padding: 20px;
+    height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual message styling blocks */
+.message {
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 80%;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.ai-message {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.user-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+/* Chat Input bar at bottom */
+.chat-input-area {
+    display: flex;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-input-area input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+}
+
+.chat-input-area input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.chat-input-area button {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.chat-input-area button:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
     </style>
 </head>
 <body>
@@ -366,7 +452,17 @@
     <a href="index.html" class="logout-btn" onclick="logout(event)">LOGOUT</a>
 </div>
 
+<!-- HAGANAR Chat Container Panel-->
+ <div class="chat-container">
+<div class="chat-box"id="chatBox">
+    <div class="message ai-message">Hello! I am the HAGANAR AI Agent. How can I assist you today?</div>
     </div>
+    <div class="chat-input-area">
+    <input type="text" id="userInput" placeholder="Ask HAGANAR anything..."/>
+<button id="sendBtn">Send</button>
+</div>
+</div>
+</div>
 
     <script>
         // Form intercept system linking seamlessly to profile dashboard view
@@ -403,6 +499,58 @@ function logout(event) {
     // If they click 'Cancel', the function ends here, doing absolutely nothing!
     // The user safely stays on the welcome.html page.
 }
+
+// ===================================================
+// 🚀 HAGANAR AI Agent Interface Engine
+// ===================================================
+const chatBox = document.getElementById('chatBox');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+
+// Helper to render user and ai chat nodes smoothly onto your glass layout
+function appendMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}-message`;
+    messageDiv.innerText = text;
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight; // Keeps newer message nodes pinned into view
+}
+
+// Handler mapping inputs down your running node backend pipeline
+async function handleChatSubmission() {
+    const messageText = userInput.value.trim();
+    if (!messageText) return;
+
+    // Clear input panel and print user statement locally
+    userInput.value = '';
+    appendMessage(messageText, 'user');
+
+    try {
+        // Query your running local server.js configuration route
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: messageText })
+        });
+
+        const data = await response.json();
+        
+        if (data.reply) {
+            appendMessage(data.reply, 'ai');
+        } else {
+            appendMessage("Sorry, I encountered an error tracking that path.", 'ai');
+        }
+    } catch (error) {
+        console.error("Network interface connection broken:", error);
+        appendMessage("Could not establish communication with the AI server.", 'ai');
+    }
+}
+
+// Trigger handlers on click or when user clicks Enter key
+sendBtn.addEventListener('click', handleChatSubmission);
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleChatSubmission();
+});
     </script>
 </body>
 </html>

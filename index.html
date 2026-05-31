@@ -491,6 +491,28 @@ togglePassword.addEventListener('click', function () {
     // This line specifically fixes the icon swap
     eyeIcon.querySelector('path').setAttribute('d', type === 'password' ? eyeOpen : eyeClosed);
 });
+
+// ==========================================
+// HAGANAR AI Agent Integration
+// ==========================================
+async function askHaganarAI(userPrompt) {
+    try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: userPrompt })
+        });
+        
+        const data = await response.json();
+        if (data.reply) {
+            console.log("HAGANAR Agent Response:", data.reply);
+            // This is where you will update your UI text elements with data.reply!
+            alert("AI Response: " + data.reply); 
+        }
+    } catch (error) {
+        console.error("Communication broke down with AI engine path:", error);
+    }
+}
     </script>
 </body>
 </html>
