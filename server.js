@@ -30,7 +30,7 @@ app.post('/api/chat', async (req, res) => {
         // Generate response streaming directly from the Gemini model
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
-            contents: message,
+           contents: [{ role: 'user', parts: [{ text: message }] }],
             config: {
                 systemInstruction: "You are the official HAGANAR AI Agent assistant. Keep your responses short, professional, elegant, and directly helpful for Mani's web ecosystem."
             }
