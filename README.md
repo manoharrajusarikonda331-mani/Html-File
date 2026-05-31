@@ -20,30 +20,52 @@ A modern, responsive, and visually striking full-stack web application featuring
 ## 📦 Local Installation & Setup
 
 1. **Clone the project repository workspace:**
-```bash
-   git clone <your-repository-url>
-   cd "Html File"
+\`\`\`bash
+git clone https://github.com/manoharrajusarikonda331-mani/Html-File.git
+cd "Html File"
+\`\`\`
 
 2. **Install necessary node package dependencies:**
-```bash
-   npm install
+\`\`\`bash
+npm install
+\`\`\`
 
 3. **Configure Environment Parameters:**
-Create a secure .env file in the root project directory level and populate your access token:   
-Code snippet
-   GEMINI_API_KEY=your_actual_google_gemini_api_key_here
+Create a secure `.env` file in the root project directory level and populate your access token:
+\`\`\`env
+GEMINI_API_KEY=your_actual_google_gemini_api_key_here
+\`\`\`
 
 4. **Boot Up the Application Server:**
 Launch the Node runtime listener inside your terminal workspace:
-```bash
-   node server.js
+\`\`\`bash
+node server.js
+\`\`\`
 
 The backend environment will report active status on port 3000. Open http://localhost:3000 inside your browser view to interact with HAGANAR live!
 
-## 📸 Preview
+## 📷 System Interface & Architecture Preview
+
+**🔐 Gateway Authentication View**
+
 ![Login Page Preview](preview.png)
 
-## ✍️ Author
-* **Mani (Sarikonda Manohar Raju)**
-* Computer Science & Engineering Associate | Global Institute of Engineering & Technology
-*
+**🗺️ Full-Stack Ecosystem Map**
+
+[Browser Frontend Layouts]             [Node.js Express Server]         [Google Cloud Node]
+   ├── welcome.html     ──(Fetch API)──►    /api/chat Endpoint  ──────►   Gemini Pro API Engine
+   └── profile.html     ──(JSON POST)──►    (.env Key Guard)   ◄──────   Live Agent Response
+
+## 👤 Core Architect & Lead Engineer
+
+<p align="left">
+<img src="https://img.shields.io/badge/Role-Computer_Science_%26_Engineering_Associate-blue?style=for-the-badge&logo=github" alt="Role Badge">
+<img src="https://img.shields.io/badge/Ecosystem-HAGANAR_Main_Node-emerald?style=for-the-badge&logo=nodedotjs" alt="Project Badge">
+</p>
+
+* **Lead Engineer: Sarikonda Manohar Raju** (Known as *Mani*)
+* **Professional Designation:** Computer Science & Engineering Associate
+* **Academic Institution:** Global Institute of Engineering & Technology (*Affiliated with JNTUH*)
+* **Primary Domain Focus:** Full-Stack AI Integration, Cloud Systems Workspace, & Core UI/UX Frameworks
+
+<p align="center">🛡️ Engineered with absolute precision for the HAGANAR Intelligent Network Ecosystem 🛡️</p>
