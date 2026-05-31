@@ -6,6 +6,165 @@
 <title>HAGANAR - Secure Profile Dashboard</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
+
+    /* --- HAGANAR AI Chat Widget Styles --- */
+#haganar-chat-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+#chat-toggle-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+#chat-toggle-btn:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+#chat-window {
+    position: absolute;
+    bottom: 75px;
+    right: 0;
+    width: 350px;
+    height: 450px;
+    background: rgba(15, 15, 25, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#chat-window.hidden {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+}
+
+.chat-header {
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.agent-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.agent-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ffa3;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ffa3;
+}
+
+.chat-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.ai-message {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    align-self: flex-start;
+    border-top-left-radius: 4px;
+}
+
+.user-message {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    align-self: flex-end;
+    border-top-right-radius: 4px;
+}
+
+.chat-input-area {
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#user-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    color: #ffffff;
+    outline: none;
+}
+
+#user-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+#send-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 0 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
         * { 
             margin: 0; 
             padding: 0; 
@@ -268,6 +427,7 @@ h2 {
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
     transform: translateY(-2px);
 }
+
     </style>
 </head>
 <body>
@@ -292,5 +452,72 @@ h2 {
         <button class="logout-btn" onclick="window.location.href='welcome.html'">Secure Log Out</button>
     </div>
 
+    <!-- HAGANAR Floating AI Chat Widget -->
+<div id="haganar-chat-container">
+    <!-- Chat Toggle Button -->
+    <button id="chat-toggle-btn" onclick="toggleChat()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8-9.04 9.06a2.1 2.1 0 1 0 2.98 2.98L15 11.04z"/><path d="M19 3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4l-4 4v-4H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14z"/></svg>
+    </button>
+
+    <!-- Chat Box Window -->
+    <div id="chat-window" class="hidden">
+        <div class="chat-header">
+            <div class="agent-info">
+                <div class="agent-dot"></div>
+                <h3>HAGANAR AI Agent</h3>
+            </div>
+            <button class="close-btn" onclick="toggleChat()">&times;</button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="message ai-message">Hello Mani! How can I assist you with the HAGANAR ecosystem today?</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <button id="send-btn" onclick="sendMessage()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.classList.toggle('hidden');
+}
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+}
+
+function sendMessage() {
+    const inputElement = document.getElementById('user-input');
+    const messageText = inputElement.value.trim();
+    
+    if (messageText === '') return;
+
+    // 1. Add User Message to Screen
+    const messagesContainer = document.getElementById('chat-messages');
+    const userMessageDiv = document.createElement('div');
+    userMessageDiv.className = 'message user-message';
+    userMessageDiv.textContent = messageText;
+    messagesContainer.appendChild(userMessageDiv);
+
+    // Clear input box
+    inputElement.value = '';
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    // 2. Simulate AI Response for now
+    setTimeout(() => {
+        const aiMessageDiv = document.createElement('div');
+        aiMessageDiv.className = 'message ai-message';
+        aiMessageDiv.textContent = "Processing... Soon we will connect this input dynamically to your live back-end API agent handler!";
+        messagesContainer.appendChild(aiMessageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 800);
+}
+</script>
 </body>
 </html>
