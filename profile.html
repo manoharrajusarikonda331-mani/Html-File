@@ -495,7 +495,7 @@ function handleKeyPress(event) {
 function sendMessage() {
     const inputElement = document.getElementById('user-input');
     const messageText = inputElement.value.trim();
-    
+
     if (messageText === '') return;
 
     // 1. Add User Message to Screen
@@ -505,18 +505,38 @@ function sendMessage() {
     userMessageDiv.textContent = messageText;
     messagesContainer.appendChild(userMessageDiv);
 
-    // Clear input box
+    // Clear input box and auto-scroll layout
     inputElement.value = '';
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-    // 2. Simulate AI Response for now
-    setTimeout(() => {
-        const aiMessageDiv = document.createElement('div');
-        aiMessageDiv.className = 'message ai-message';
-        aiMessageDiv.textContent = "Processing... Soon we will connect this input dynamically to your live back-end API agent handler!";
-        messagesContainer.appendChild(aiMessageDiv);
+    // 2. Create the AI Message Placeholder Element on Screen
+    const aiMessageDiv = document.createElement('div');
+    aiMessageDiv.className = 'message ai-message';
+    aiMessageDiv.textContent = 'Typing...';
+    messagesContainer.appendChild(aiMessageDiv);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    // 3. Connect dynamically to your live back-end API agent handler route
+    fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: messageText })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('API connection failure');
+        return response.json();
+    })
+    .then(data => {
+        // Swap out placeholder text dynamically with the real Gemini model reply!
+        aiMessageDiv.textContent = data.reply;
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }, 800);
+    })
+    .catch(error => {
+        console.error('Error fetching backend agent:', error);
+        aiMessageDiv.textContent = 'Sorry, I encountered an error tracking that path.';
+    });
 }
 </script>
 </body>
