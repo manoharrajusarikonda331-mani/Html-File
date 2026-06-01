@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAGANAR - Intelligent Network Workspace</title>
+    <!-- Remix Icons for crisp, scalable enterprise iconography -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-glow: rgba(99, 102, 241, 0.15);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-neon-blue: #38bdf8;
+            --accent-neon-purple: #a855f7;
+            --status-active: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* Ambient background glow clusters */
+        .orb {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .orb-1 { top: -100px; left: -100px; background: rgba(56, 189, 248, 0.15); }
+        .orb-2 { bottom: -100px; right: -100px; background: rgba(168, 85, 247, 0.15); }
+
+        /* Core Application Frame Container */
+        .app-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            padding: 1.5rem;
+            gap: 1.5rem;
+        }
+
+        /* --- PERSISTENT NAVIGATION SIDEBAR --- */
+        nav.sidebar {
+            width: 280px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .brand-logo {
+    font-size: 1.8rem;
+    background: linear-gradient(to right, var(--accent-neon-blue), var(--accent-neon-purple));
+    -webkit-background-clip: text;
+    background-clip: text; /* Add this line to fix the first warning */
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+        .nav-links {
+            list-style: none;
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-item.active a, .nav-item a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 12px var(--glass-glow);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item i { font-size: 1.3rem; }
+
+        .system-status-pill {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.75rem 1rem;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--status-active);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--status-active);
+            animation: pulse 2s infinite;
+        }
+
+        /* --- MAIN DASHBOARD CANVAS INTERFACE --- */
+        main.main-canvas {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            height: 100%;
+        }
+
+        /* Analytics Header Grid */
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .metric-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-info h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+    background: linear-gradient(to right, #ffffff, #cbd5e1);
+    -webkit-background-clip: text;
+    background-clip: text; /* Add this line to fix the second warning */
+    -webkit-text-fill-color: transparent;
+}
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-neon-blue);
+        }
+
+        /* --- THE CORE AI AGENT WORKSPACE --- */
+        .workspace-chat-container {
+            flex: 1;
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .chat-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-title-area h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .chat-title-area p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .chat-messages-box {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* Beautiful Dynamic Message Bubbles */
+        .msg {
+            max-width: 75%;
+            padding: 1rem 1.25rem;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .msg.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
+        }
+
+        .msg.agent {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Structured Terminal Entry Form Input */
+        .chat-input-bar {
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .input-wrapper {
+            display: flex;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 0.5rem 0.75rem 0.5rem 1.25rem;
+            align-items: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--accent-neon-blue);
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.15);
+        }
+
+        .input-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            padding-right: 1rem;
+        }
+
+        .input-wrapper input::placeholder { color: #64748b; }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--accent-neon-blue) 0%, #0284c7 100%);
+            color: #ffffff;
+            border: none;
+            outline: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="app-container">
+        <!-- Persistent Navigation Sidebar -->
+        <nav class="sidebar">
+            <div class="top-nav-group">
+                <div class="brand-section">
+                    <i class="ri-shield-flash-line" style="font-size: 1.8rem; color: var(--accent-neon-blue);"></i>
+                    <span class="brand-logo">HAGANAR</span>
+                </div>
+                <ul class="nav-links">
+            <li class="nav-item active">
+                <a href="#"><i class="ri-terminal-box-line"></i>AI Workspace</a>
+            </li>
+            <li class="nav-item">
+                <a href="/welcome"><i class="ri-door-open-line"></i>Welcome Page</a>
+            </li>
+            <li class="nav-item">
+                <a href="/profile"><i class="ri-user-settings-line"></i>System Profile</a>
+            </li>
+        </ul>
+            </div>
+            
+            <div class="system-status-pill">
+                <div class="status-indicator"></div>
+                <span>HAGANAR Core Node: Active</span>
+            </div>
+        </nav>
+
+        <!-- Main Dashboard Canvas Interface -->
+        <main class="main-canvas">
+            <!-- Analytics Header Grid -->
+            <section class="analytics-grid">
+                <div class="metric-card">
+                    <div class="metric-info">
+                        <p>Latency Response</p>
+                        <h3>14 ms</h3>
+                    </div>
+                    <div class="metric-icon"><i class="ri-pulse-line"></i></div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-info">
+                        <p>Core Model</p>
+                        <h3>Gemini Pro</h3>
+                    </div>
+                    <div class="metric-icon" style="color: var(--accent-neon-purple);"><i class="ri-brain-line"></i></div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-info">
+                        <p>Token Status</p>
+                        <h3>Secure (ENV)</h3>
+                    </div>
+                    <div class="metric-icon" style="color: var(--status-active);"><i class="ri-key-2-line"></i></div>
+                </div>
+            </section>
+
+            <!-- The Core AI Agent Workspace -->
+            <section class="workspace-chat-container">
+                <div class="chat-header">
+                    <div class="chat-title-area">
+                        <h2>Neural Assistant Engine</h2>
+                        <p>Asynchronous full-stack context streaming pipeline active.</p>
+                    </div>
+                    <i class="ri-bubble-chart-line" style="font-size: 1.4rem; color: var(--text-secondary);"></i>
+                </div>
+
+                <div class="chat-messages-box" id="chatBox">
+                    <div class="msg agent">
+                        Hello! Welcome back to the HAGANAR Intelligence Command Node. How can I assist you with your full-stack systems layout today?
+                    </div>
+                </div>
+
+                <div class="chat-input-bar">
+                    <form id="chatForm" class="input-wrapper">
+                        <input type="text" id="userInput" placeholder="Ask HAGANAR neural agent..." autocomplete="off" required>
+                        <button type="submit" class="send-btn"><i class="ri-send-plane-2-line"></i></button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Frontend Interactive Script Integration -->
+    <script>
+        const chatForm = document.getElementById('chatForm');
+        const userInput = document.getElementById('userInput');
+        const chatBox = document.getElementById('chatBox');
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const messageText = userInput.value.trim();
+            if (!messageText) return;
+
+            // 1. Append User Message
+            appendMessage(messageText, 'user');
+            userInput.value = '';
+
+            // 2. Append Temporary Loading Message for Agent Response
+            const loadingDiv = appendMessage('System processing operational request...', 'agent');
+
+            try {
+                // 3. Dispatch Async Fetch Payload to Express Server
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: messageText })
+                });
+
+                const data = await response.json();
+                
+                // 4. Update with Live Server Response
+                if (data.reply) {
+                    loadingDiv.textContent = data.reply;
+                } else {
+                    loadingDiv.textContent = 'Operational anomaly encountered. Please check connection logs.';
+                }
+            } catch (err) {
+                loadingDiv.textContent = 'Network communication link failure. Unable to interface with background listener.';
+                console.error(err);
+            }
+        });
+
+        function appendMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('msg', sender);
+            msgDiv.textContent = text;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return msgDiv;
+        }
+    </script>
+</body>
+</html>

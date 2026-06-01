@@ -2,168 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAGANAR - Secure Profile Dashboard</title>
-<link rel="icon" type="image/png" href="favicon.png">
-<style>
-
-    /* --- HAGANAR AI Chat Widget Styles --- */
-#haganar-chat-container {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    z-index: 1000;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-#chat-toggle-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-
-#chat-toggle-btn:hover {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-#chat-window {
-    position: absolute;
-    bottom: 75px;
-    right: 0;
-    width: 350px;
-    height: 450px;
-    background: rgba(15, 15, 25, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#chat-window.hidden {
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    pointer-events: none;
-}
-
-.chat-header {
-    padding: 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.agent-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.agent-dot {
-    width: 8px;
-    height: 8px;
-    background: #00ffa3;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #00ffa3;
-}
-
-.chat-header h3 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 22px;
-    cursor: pointer;
-}
-
-.chat-messages {
-    flex: 1;
-    padding: 16px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.message {
-    max-width: 80%;
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.ai-message {
-    background: rgba(255, 255, 255, 0.05);
-    color: #e0e0e0;
-    align-self: flex-start;
-    border-top-left-radius: 4px;
-}
-
-.user-message {
-    background: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    align-self: flex-end;
-    border-top-right-radius: 4px;
-}
-
-.chat-input-area {
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    gap: 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-#user-input {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 10px;
-    color: #ffffff;
-    outline: none;
-}
-
-#user-input::placeholder {
-    color: rgba(255, 255, 255, 0.3);
-}
-
-#send-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #ffffff;
-    padding: 0 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAGANAR - Secure Profile Dashboard</title>
+    <!-- Remix Icons for scalable industrial developer iconography -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-neon-blue: #38bdf8;
+            --accent-neon-purple: #a855f7;
+            --accent-neon-pink: #f43f5e;
+            --status-active: #10b981;
+        }
 
         * { 
             margin: 0; 
@@ -173,51 +28,51 @@
         
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            height: 100vh;
+            background: var(--bg-gradient);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
+            padding: 2rem 1rem;
         }
 
-        /* Ambient glowing background shapes to match the login screen */
+        /* Ambient floating background glow spheres */
         .bg-glows {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
-            z-index: 1;
+            z-index: 0;
+            top: 0;
+            left: 0;
+            pointer-events: none;
         }
-
         .glow-sphere {
             position: absolute;
-            background: radial-gradient(circle, rgba(255, 107, 107, 0.4) 0%, rgba(127, 0, 255, 0.1) 70%);
             border-radius: 50%;
-            filter: blur(40px);
+            filter: blur(120px);
+            opacity: 0.35;
         }
-        .sphere-1 { width: 300px; height: 300px; top: -5%; left: -5%; }
-        .sphere-2 { width: 400px; height: 400px; bottom: -10%; right: -5%; }
+        .sphere-1 { width: 400px; height: 400px; top: 10%; left: 15%; background: #38bdf8; }
+        .sphere-2 { width: 500px; height: 500px; bottom: 10%; right: 15%; background: #a855f7; }
 
-        /* Professional Glassmorphism Profile Card Container */
+        /* The Core Premium Glassmorphism Container */
         .profile-container {
             position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(25px);
+            background: var(--glass-bg); 
+            backdrop-filter: blur(25px); 
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 40px;
+            border: 1px solid var(--glass-border); 
+            border-radius: 32px;
+            padding: 45px;
             width: 90%;
-            max-width: 450px;
+            max-width: 520px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             text-align: center;
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            color: #fff;
-            animation: cardFadeIn 0.8s ease-out;
+            animation: cardFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes cardFadeIn {
@@ -225,209 +80,319 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Modern Avatar Design */
+        /* Modern Tactile Avatar Frame */
         .avatar-box {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 50%;
+            position: relative;
+            width: 110px;
+            height: 110px;
             margin: 0 auto 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 2px dashed var(--accent-neon-blue);
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 36px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+            animation: spinBorder 24s linear infinite;
         }
 
-        h2 { 
-            font-weight: 600;
-            font-size: 26px;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px; 
+        .avatar-box i {
+            font-size: 3.5rem;
+            color: var(--text-primary);
+            position: absolute;
         }
 
-        p.role { 
-            color: #b8b5ff; 
-            font-size: 14px; 
+        @keyframes spinBorder {
+            100% { transform: rotate(360deg); }
+        }
+
+        h2 {
+    margin: 15px 0 6px 0;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(to right, #ffffff, #e2e8f0);
+    -webkit-background-clip: text;
+    background-clip: text; /* Add this line to clear the warning */
+    -webkit-text-fill-color: transparent;
+}
+
+        .role {
+            color: var(--accent-neon-blue); 
+            margin-bottom: 25px;
+            font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 30px; 
+            letter-spacing: 2px;
         }
 
-        /* Enterprise-Style Metrics Dashboard Panel */
-        .info-panel {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 14px;
-            padding: 20px;
-            text-align: left;
+        /* Interactive Tech Badges */
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
-        .info-item { 
-            margin-bottom: 12px; 
-            font-size: 14px; 
+        .dev-badge {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .dev-badge i { color: var(--accent-neon-purple); font-size: 0.85rem; }
+
+        /* Info Panel Layout inside the glass */
+        .info-panel {
+            background: rgba(0, 0, 0, 0.2); 
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 12px 0;
+            font-size: 0.95rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 8px;
-        }
-        
-        .info-item:last-child {
-            margin-bottom: 0;
-            border-bottom: none;
-            padding-bottom: 0;
         }
 
-        .info-item strong { 
-            color: rgba(255, 255, 255, 0.6); 
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
             font-weight: 500;
         }
+        .info-label i { font-size: 1.15rem; width: 20px; }
 
-        .info-item span { 
-            color: #ffffff; 
-            font-weight: 600;
-        }
-
-        /* Secure Action Button */
-        .logout-btn {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 15px;
+        .info-value {
             font-weight: 600;
             letter-spacing: 0.5px;
+        }
+
+        /* Action Buttons Grid Layout */
+        .control-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             transition: all 0.3s ease;
         }
 
-        /* 1. Base Body styling with a modern dark gradient background */
-body {
-    background: #0f172a; /* Deep slate dark mode */
-    color: #f8fafc;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        .btn-return {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            border: 1px solid var(--glass-border);
+        }
+        .btn-return:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
 
-/* 2. Vibrant background glow spheres that float behind the glass */
-.bg-glows {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    z-index: -1;
-    top: 0;
-    left: 0;
-}
-.glow-sphere {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.4;
-}
-.sphere-1 {
-    width: 300px;
-    height: 300px;
-    background: #3b82f6; /* Vibrant Blue */
-    top: 20%;
-    left: 25%;
-}
-.sphere-2 {
-    width: 400px;
-    height: 400px;
-    background: #a855f7; /* Vibrant Purple */
-    bottom: 15%;
-    right: 20%;
-}
+        .btn-logout {
+            background: linear-gradient(135deg, var(--accent-neon-pink) 0%, #b91c1c 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.2);
+        }
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(244, 63, 94, 0.4);
+        }
 
-/* 3. The Core Glassmorphism Container */
-.profile-container {
-    background: rgba(255, 255, 255, 0.07); /* Ultra-transparent white */
-    backdrop-filter: blur(16px); /* Frosted glass effect */
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Clean glassy border */
-    border-radius: 24px;
-    padding: 40px;
-    width: 90%;
-    max-width: 450px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    text-align: center;
-}
+        /* --- HAGANAR AI Chat Widget Styles --- */
+        #haganar-chat-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
 
-/* 4. Avatar and Typography */
-.avatar-box {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-h2 {
-    margin: 10px 0 5px 0;
-    font-size: 1.8rem;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-}
-.role {
-    color: #94a3b8; /* Subtle text color */
-    margin-bottom: 30px;
-    font-size: 1rem;
-}
+        #chat-toggle-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
 
-/* 5. Info Panel Layout inside the glass */
-.info-panel {
-    background: rgba(0, 0, 0, 0.2); /* Slightly darker backing for contrast */
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 25px;
-    text-align: left;
-}
-.info-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    font-size: 0.95rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.info-item:last-child {
-    border-bottom: none;
-}
-.info-item strong {
-    color: #cbd5e1;
-}
-.info-item span {
-    color: #38bdf8; /* Highlighted variable values */
-    font-family: 'Courier New', Courier, monospace; /* Clean node/dev text style */
-}
+        #chat-toggle-btn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
 
-/* 6. Premium Interactive Glass Button */
-.logout-btn {
-    width: 100%;
-    background: rgba(239, 68, 68, 0.2); /* Transparent red tint */
-    color: #fca5a5;
-    border: 1px solid rgba(239, 68, 68, 0.4);
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.logout-btn:hover {
-    background: rgba(239, 68, 68, 0.4);
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
-    transform: translateY(-2px);
-}
+        #chat-window {
+            position: absolute;
+            bottom: 75px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
+        #chat-window.hidden {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            pointer-events: none;
+        }
+
+        .chat-header {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .agent-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .agent-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .ai-message {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+            align-self: flex-start;
+            border-top-left-radius: 4px;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            align-self: flex-end;
+            border-top-right-radius: 4px;
+        }
+
+        .chat-input-area {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #user-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #ffffff;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        #user-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        #send-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            color: #ffffff;
+            padding: 0 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        #send-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-neon-blue);
+        }
     </style>
 </head>
 <body>
@@ -437,48 +402,81 @@ h2 {
         <div class="glow-sphere sphere-2"></div>
     </div>
 
+    <!-- Core Glassmorphism Profile Container Card -->
     <div class="profile-container">
-        <div class="avatar-box">👨‍💻</div>
-        <h2>Sarikonda Manohar Raju</h2>
-        <p class="role">Lead Platform Engineer & Founder</p>
         
+        <!-- Avatar Section -->
+        <div class="avatar-box">
+            <i class="ri-user-settings-line"></i>
+        </div>
+
+        <!-- Identity and Header -->
+        <h2>Sarikonda Manohar Raju</h2>
+        <p class="role">Computer Science & Engineering Associate</p>
+        
+        <!-- Professional Platform Verification Badges -->
+        <div class="badge-row">
+            <div class="dev-badge"><i class="ri-verified-badge-line" style="color: var(--accent-neon-blue);"></i>Lead Engineer</div>
+            <div class="dev-badge"><i class="ri-code-s-slash-line"></i>Full-Stack Node</div>
+            <div class="dev-badge"><i class="ri-cpu-line" style="color: var(--status-active);"></i>AI Integrated</div>
+        </div>
+
+        <!-- Enterprise Parameter Data Panel -->
         <div class="info-panel">
-            <div class="info-item"><strong>Account Status:</strong> <span>Verified Security</span></div>
-            <div class="info-item"><strong>Clearance Level:</strong> <span>Administrator</span></div>
-            <div class="info-item"><strong>Active Deployment:</strong> <span>HAGANAR Main Node</span></div>
-            <div class="info-item"><strong>Environment Node:</strong> <span>Localhost:5500</span></div>
-        </div>
-
-        <button class="logout-btn" onclick="window.location.href='welcome.html'">Secure Log Out</button>
-    </div>
-
-    <!-- HAGANAR Floating AI Chat Widget -->
-<div id="haganar-chat-container">
-    <!-- Chat Toggle Button -->
-    <button id="chat-toggle-btn" onclick="toggleChat()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8-9.04 9.06a2.1 2.1 0 1 0 2.98 2.98L15 11.04z"/><path d="M19 3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4l-4 4v-4H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14z"/></svg>
-    </button>
-
-    <!-- Chat Box Window -->
-    <div id="chat-window" class="hidden">
-        <div class="chat-header">
-            <div class="agent-info">
-                <div class="agent-dot"></div>
-                <h3>HAGANAR AI Agent</h3>
+            <div class="info-item">
+                <span class="info-label"><i class="ri-shield-keyhole-line" style="color: var(--status-active);"></i>Account Status</span>
+                <span class="info-value" style="color: var(--status-active);">Verified Security</span>
             </div>
-            <button class="close-btn" onclick="toggleChat()">&times;</button>
+            <div class="info-item">
+                <span class="info-label"><i class="ri-user-star-line" style="color: var(--accent-neon-blue);"></i>Clearance Level</span>
+                <span class="info-value" style="color: #ffffff;">Administrator</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label"><i class="ri-git-branch-line" style="color: var(--accent-neon-purple);"></i>Active Deployment</span>
+                <span class="info-value" style="color: #ffffff;">HAGANAR Main Node</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label"><i class="ri-server-line" style="color: var(--text-secondary);"></i>Environment Node</span>
+                <span class="info-value" style="color: var(--accent-neon-blue);">Localhost:3000</span>
+            </div>
         </div>
-        <div id="chat-messages" class="chat-messages">
-            <div class="message ai-message">Hello Mani! How can I assist you with the HAGANAR ecosystem today?</div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="user-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
-            <button id="send-btn" onclick="sendMessage()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            </button>
+
+        <!-- System Control Link Group -->
+        <div class="control-grid">
+            <a href="/home" class="action-btn btn-return">
+                <i class="ri-arrow-left-line"></i> Workspace
+            </a>
+            <a href="/" class="action-btn btn-logout">
+                <i class="ri-logout-box-r-line"></i> Secure Log Out
+            </a>
         </div>
     </div>
-</div>
+
+    <!-- HAGANAR Floating AI Chat Widget (Untouched & Fully Operational) -->
+    <div id="haganar-chat-container">
+        <button id="chat-toggle-btn" onclick="toggleChat()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 8-9.04 9.06a2.1 2.1 0 1 0 2.98 2.98L15 11.04z"/><path d="M19 3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4l-4 4v-4H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14z"/></svg>
+        </button>
+
+        <div id="chat-window" class="hidden">
+            <div class="chat-header">
+                <div class="agent-info">
+                    <div class="agent-dot"></div>
+                    <h3>HAGANAR AI Agent</h3>
+                </div>
+                <button class="close-btn" onclick="toggleChat()">&times;</button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message ai-message">Hello Mani! How can I assist you with the HAGANAR ecosystem today?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="user-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button id="send-btn" onclick="sendMessage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
 <script>
 function toggleChat() {
@@ -498,25 +496,21 @@ function sendMessage() {
 
     if (messageText === '') return;
 
-    // 1. Add User Message to Screen
     const messagesContainer = document.getElementById('chat-messages');
     const userMessageDiv = document.createElement('div');
     userMessageDiv.className = 'message user-message';
     userMessageDiv.textContent = messageText;
     messagesContainer.appendChild(userMessageDiv);
 
-    // Clear input box and auto-scroll layout
     inputElement.value = '';
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-    // 2. Create the AI Message Placeholder Element on Screen
     const aiMessageDiv = document.createElement('div');
     aiMessageDiv.className = 'message ai-message';
     aiMessageDiv.textContent = 'Typing...';
     messagesContainer.appendChild(aiMessageDiv);
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-    // 3. Connect dynamically to your live back-end API agent handler route
     fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -529,7 +523,6 @@ function sendMessage() {
         return response.json();
     })
     .then(data => {
-        // Swap out placeholder text dynamically with the real Gemini model reply!
         aiMessageDiv.textContent = data.reply;
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     })
