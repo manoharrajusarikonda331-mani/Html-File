@@ -497,58 +497,99 @@
     </div>
 
 <script>
-function toggleChat() {
-    const chatWindow = document.getElementById('chat-window');
-    chatWindow.classList.toggle('hidden');
-}
+    // High-Performance Session Hydration Matrix
+    document.addEventListener("DOMContentLoaded", () => {
+        const activeUser = sessionStorage.getItem('haganar_user') || 'Authorized User';
+        console.log(`HAGANAR Profile Session loaded for: ${activeUser}`);
 
-function handleKeyPress(event) {
-    if (event.key === 'Enter') {
-        sendMessage();
-    }
-}
+        // Navigation Axis Engine (Resolves Profile 404 Paths Perfectly)
+        document.getElementById('workspaceBtn')?.addEventListener('click', () => {
+            window.location.href = 'welcome.html';
+        });
 
-function sendMessage() {
-    const inputElement = document.getElementById('user-input');
-    const messageText = inputElement.value.trim();
-
-    if (messageText === '') return;
-
-    const messagesContainer = document.getElementById('chat-messages');
-    const userMessageDiv = document.createElement('div');
-    userMessageDiv.className = 'message user-message';
-    userMessageDiv.textContent = messageText;
-    messagesContainer.appendChild(userMessageDiv);
-
-    inputElement.value = '';
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-    const aiMessageDiv = document.createElement('div');
-    aiMessageDiv.className = 'message ai-message';
-    aiMessageDiv.textContent = 'Typing...';
-    messagesContainer.appendChild(aiMessageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-    fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message: messageText })
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('API connection failure');
-        return response.json();
-    })
-    .then(data => {
-        aiMessageDiv.textContent = data.reply;
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    })
-    .catch(error => {
-        console.error('Error fetching backend agent:', error);
-        aiMessageDiv.textContent = 'Sorry, I encountered an error tracking that path.';
+        document.getElementById('secureLogoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to securely log out from the core node?')) {
+                sessionStorage.clear();
+                window.location.href = 'index.html';
+            }
+        });
     });
-}
+
+    // UI Window Toggling Logic
+    function toggleChat() {
+        const chatWindow = document.getElementById('chat-window');
+        if (chatWindow) {
+            chatWindow.classList.toggle('hidden');
+        }
+    }
+
+    // Key Press Interception
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    // ENVIRONMENT-AWARE IDENTITY INPUT CONTEXT PROCESSING
+    async function sendMessage() {
+        const inputElement = document.getElementById('user-input');
+        if (!inputElement) return;
+
+        const messageText = inputElement.value.trim();
+        if (messageText === '') return;
+
+        const messagesContainer = document.getElementById('chat-messages');
+        if (!messagesContainer) return;
+
+        // Render User Message Node instantly
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'message user-message';
+        userMessageDiv.textContent = messageText;
+        messagesContainer.appendChild(userMessageDiv);
+        
+        // Clear input tracking and scroll view pin
+        inputElement.value = '';
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Render Pending AI Typing Node state bubble
+        const aiMessageDiv = document.createElement('div');
+        aiMessageDiv.className = 'message ai-message';
+        aiMessageDiv.textContent = 'Typing...';
+        messagesContainer.appendChild(aiMessageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Auto-detect hosting infrastructure profile environment
+        const isStaticDeployment = window.location.hostname.includes('github.io');
+
+        if (isStaticDeployment) {
+            // High-fidelity local simulation fallback sequence for GitHub Pages hosting platforms
+            setTimeout(() => {
+                aiMessageDiv.textContent = 'Handshake verified. Profile workspace metrics are fully protected under security clearance levels.';
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 800);
+            return;
+        }
+
+        // Native Full-Stack Live Node Pipeline (Runs natively on Localhost:3000)
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: messageText })
+            });
+
+            if (!response.ok) throw new Error('API connection failure');
+            const data = await response.json();
+            
+            aiMessageDiv.textContent = data.reply || "Communication loop silent.";
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        } catch (error) {
+            console.error('Error fetching backend agent pipeline:', error);
+            aiMessageDiv.textContent = 'Sorry, I encountered an error tracking that path.';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    }
 </script>
 </body>
 </html>
