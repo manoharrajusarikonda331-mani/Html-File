@@ -446,21 +446,21 @@ input {
 
         createParticles();
 
-      // Intercept Form Submission for High-End Success Animation State Transitions
+     // Intercept Form Submission for High-End Success Animation State Transitions
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
+            // Stop the form from submitting a POST request to the server
             e.preventDefault();
             
-            const form = this;
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             
-            // Fallback check to grab the username input value cleanly
+            // Grab the username input value cleanly
             const usernameInput = document.getElementsByName('username')[0];
             const usernameVal = usernameInput ? usernameInput.value : 'Mani';
             
-            // Save user metrics into active session pipelines
+            // Save user metrics into active session pipelines for client-side storage
             sessionStorage.setItem('haganar_user', usernameVal);
             
             // Trigger industrial success transformations
@@ -471,9 +471,9 @@ input {
                 btnText.innerHTML = '✔ Success! Access Granted';
             }
             
-            // Forward data stream to backend server network after 1.2s delay
+            // CLIENT-SIDE ROUTING: Smoothly transition to the welcome page after 1.2s delay
             setTimeout(() => {
-                form.submit();
+                window.location.href = 'welcome.html';
             }, 1200);
         });
     }
