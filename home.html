@@ -443,11 +443,8 @@
     function appendMessage(text, sender) {
         if (!chatBox) return null;
         const msgDiv = document.createElement('div');
-        
-        // Match the exact class framework used for your bubbles: 'user-message' and 'ai-message'
-        msgDiv.className = `message ${sender}-message`;
+        msgDiv.classList.add('message', `${sender}-message`);
         msgDiv.textContent = text;
-        
         chatBox.appendChild(msgDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
         return msgDiv;
@@ -462,12 +459,12 @@
             const messageText = userInput.value.trim();
             if (!messageText) return;
 
-            // 1. Render User Message Node instantly on the RIGHT side bubble
+            // Render User Message Node instantly
             appendMessage(messageText, 'user');
             userInput.value = '';
 
-            // 2. Render Pending AI Loading state bubble on the LEFT side bubble
-            const loadingDiv = appendMessage('System processing operational request...', 'ai');
+            // Render Pending AI Loading state bubble
+            const loadingDiv = appendMessage('System processing operational request...', 'agent');
 
             // Auto-detect hosting infrastructure profile environment
             const isStaticDeployment = window.location.hostname.includes('github.io');
