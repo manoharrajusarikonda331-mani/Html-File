@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
+import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -16,32 +17,35 @@ const PORT = process.env.PORT || 3000;
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 // 2. Add Middlewares
+app.use(cors({
+    origin: 'https://manoharrajusarikonda331-mani.github.io'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname)); // Serves your landing, profile, home, and welcome layouts
+// app.use(express.static(__dirname)); // Serves your landing, profile, home, and welcome layouts
 
 /* ==========================================================================
    HAGANAR ROUTING MANAGEMENT PIPELINE
    ========================================================================== */
 
-// Route A: Root Path - Automatically loads the primary entry portal gateway
+// Route A: Base Redirect Path - Redirects straight back to your live public interface front
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.redirect('https://manoharrajusarikonda331-mani.github.io/Html-File/');
 });
 
-// Route B1: Welcome Path - Serves your secure introductory welcome layout
+// Route B1: Welcome Path Fallback Redirect
 app.get('/welcome', (req, res) => {
-    res.sendFile(path.join(__dirname, 'welcome.html'));
+    res.redirect('https://manoharrajusarikonda331-mani.github.io/Html-File/welcome.html');
 });
 
-// Route B2: Home Path - Serves your intelligent glassmorphism workspace dashboard
+// Route B2: Home Path Fallback Redirect
 app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, 'home.html'));
+    res.redirect('https://manoharrajusarikonda331-mani.github.io/Html-File/home.html');
 });
 
-// Route B3: Profile Path - Serves your premium glassmorphism engineer profile node
+// Route B3: Profile Path Fallback Redirect
 app.get('/profile', (req, res) => {
-    res.sendFile(path.join(__dirname, 'profile.html'));
+    res.redirect('https://manoharrajusarikonda331-mani.github.io/Html-File/profile.html');
 });
 
 // Route C: Administrative Gate Sign-In Interceptor Route
