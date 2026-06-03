@@ -499,9 +499,9 @@
     });
 
     // Core variables mapping cleanly to your interface glass canvas element nodes
-    const chatBox = document.getElementById('chat-messages');
-    const userInput = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
+    const chatBox = document.getElementById('chat-messages') || document.getElementById('chatMessages');
+    const userInput = document.getElementById('user-input') || document.getElementById('chatInput');
+    const sendBtn = document.getElementById('send-btn') || document.getElementById('sendBtn');
 
     // Helper to render user and ai chat nodes smoothly onto your layout view
     function appendMessage(text, sender) {
