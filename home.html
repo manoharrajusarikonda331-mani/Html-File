@@ -418,81 +418,110 @@
 
     <!-- Frontend Interactive Script Integration -->
    <script>
-    // High-Performance Session Hydration
-    const activeUser = sessionStorage.getItem('haganar_user') || 'Authorized User';
+    /**
+     * @fileoverview HAGANAR Command Node Core Interface Pipeline
+     * Enterprise Architecture - Production Level
+     */
+    (() => {
+        'use strict';
 
-    // Navigation Mapping Core (Fixes Sidebar 404 Errors)
-    document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById('aiWorkspaceBtn')?.addEventListener('click', () => {
-            window.location.href = 'home.html';
-        });
-        document.getElementById('welcomePageBtn')?.addEventListener('click', () => {
-            window.location.href = 'welcome.html';
-        });
-        document.getElementById('systemProfileBtn')?.addEventListener('click', () => {
-            window.location.href = 'profile.html';
-        });
-    });
+        // Session Hydration & Context Initialization
+        const ACTIVE_USER = sessionStorage.getItem('haganar_user') || 'Authorized User';
 
-    // Chat Layout Element Node Maps
-    const chatBox = document.getElementById('chatBox') || document.getElementById('chat-messages');
-    const userInput = document.getElementById('userInput') || document.getElementById('user-input');
-    const chatForm = document.getElementById('chatForm');
+        // Core Application State Selectors
+        const DOM_NODES = {
+            chatBox: document.getElementById('chatBox') || document.getElementById('chat-messages'),
+            userInput: document.getElementById('userInput') || document.getElementById('user-input'),
+            chatForm: document.getElementById('chatForm'),
+            btnWorkspace: document.getElementById('aiWorkspaceBtn'),
+            btnWelcome: document.getElementById('welcomePageBtn'),
+            btnProfile: document.getElementById('systemProfileBtn')
+        };
 
-    // Helper to render user and ai chat nodes smoothly onto your layout view
-    function appendMessage(text, sender) {
-        if (!chatBox) return null;
-        const msgDiv = document.createElement('div');
-        msgDiv.classList.add('message', `${sender}-message`);
-        msgDiv.textContent = text;
-        chatBox.appendChild(msgDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        return msgDiv;
-    }
+        // Industrial Structural Navigation Axis Mapping
+        const initializeNavigation = () => {
+            DOM_NODES.btnWorkspace?.addEventListener('click', () => window.location.href = 'home.html');
+            DOM_NODES.btnWelcome?.addEventListener('click', () => window.location.href = 'welcome.html');
+            DOM_NODES.btnProfile?.addEventListener('click', () => window.location.href = 'profile.html');
+        };
 
-    // ENVIRONMENT-AWARE DEPLOYMENT PIPELINE
-    if (chatForm) {
-        chatForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            if (!userInput) return;
+        /**
+         * Renders standardized layout bubbles to the view tree matrix
+         * @param {string} text - Payload message content string
+         * @param {string} type - System identity type selector ('user' | 'ai')
+         */
+        const appendMessageNode = (text, type) => {
+            if (!DOM_NODES.chatBox) return null;
 
-            const messageText = userInput.value.trim();
-            if (!messageText) return;
+            const msgElement = document.createElement('div');
+            msgElement.className = `message ${type}-message`;
+            msgElement.textContent = text;
 
-            // Render User Message Node instantly
-            appendMessage(messageText, 'user');
-            userInput.value = '';
+            DOM_NODES.chatBox.appendChild(msgElement);
+            DOM_NODES.chatBox.scrollTop = DOM_NODES.chatBox.scrollHeight;
+            return msgElement;
+        };
 
-            // Render Pending AI Loading state bubble
-            const loadingDiv = appendMessage('System processing operational request...', 'agent');
+        // Asynchronous Network Execution Handler
+        const handlePipelineSubmission = async (event) => {
+            event.preventDefault();
+            if (!DOM_NODES.userInput) return;
 
-            // Auto-detect hosting infrastructure profile environment
-            const isStaticDeployment = window.location.hostname.includes('github.io');
-            
-            // Dynamic URL configuration: Use Render in production, absolute path in local testing
-            const BACKEND_URL = isStaticDeployment ? 'https://haganar-backend.onrender.com' : '';
+            const rawText = DOM_NODES.userInput.value.trim();
+            if (!rawText) return;
 
-            // Native Full-Stack Live Node Pipeline (Routes dynamically based on environment)
+            // Immediately map User state to the RIGHT hand UI grid layer
+            appendMessageNode(rawText, 'user');
+            DOM_NODES.userInput.value = '';
+
+            // Stage Pending AI processing container frame on the LEFT hand side
+            const loadingFrame = appendMessageNode('System processing operational metrics...', 'ai');
+
+            // Infrastructure Mapping Optimization Vectors
+            const isCloudDeployment = window.location.hostname.includes('github.io');
+            const GATEWAY_URL = isCloudDeployment ? 'https://haganar-backend.onrender.com' : '';
+
             try {
-                const response = await fetch(`${BACKEND_URL}/api/chat`, {
+                const response = await fetch(`${GATEWAY_URL}/api/chat`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: messageText })
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    // Sends dual properties to support all backend schema naming structures
+                    body: JSON.stringify({ message: rawText, text: rawText })
                 });
-                
-                const data = await response.json();
-                if (loadingDiv) {
-                    loadingDiv.textContent = data.reply || "Communication loop silent.";
+
+                if (!response.ok) {
+                    throw new Error(`HTTP network gateway returned fault status: ${response.status}`);
                 }
-            } catch (error) {
-                console.error("Cloud full-stack engine bridge offline:", error);
-                if (loadingDiv) {
-                    loadingDiv.textContent = "Network communication link failure. Unable to interface with background listener.";
+
+                const payload = await response.json();
+                
+                if (loadingFrame) {
+                    // Extracting text dynamically depending on API structure types
+                    loadingFrame.textContent = payload.reply || payload.text || payload.message || "Communication loop silent.";
+                }
+            } catch (networkFault) {
+                console.error("Critical Cloud Gateway Interconnection Failure:", networkFault);
+                if (loadingFrame) {
+                    loadingFrame.textContent = "Network communication link failure. Unable to interface with background listener.";
+                }
+            } finally {
+                if (DOM_NODES.chatBox) {
+                    DOM_NODES.chatBox.scrollTop = DOM_NODES.chatBox.scrollHeight;
                 }
             }
-            if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+        };
+
+        // Primary Core Lifecycle Bindings
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeNavigation();
+            if (DOM_NODES.chatForm) {
+                DOM_NODES.chatForm.addEventListener('submit', handlePipelineSubmission);
+            }
         });
-    }
+    })();
 </script>
 </body>
 </html>

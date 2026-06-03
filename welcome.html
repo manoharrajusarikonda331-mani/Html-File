@@ -471,91 +471,112 @@
 </div> 
 </div> 
    <script>
-    // High-Performance Client-Side Session Hydration
-    const activeUser = sessionStorage.getItem('haganar_user') || 'Authorized User';
-    console.log(`HAGANAR Session initialized for: ${activeUser}`);
+    /**
+     * @fileoverview HAGANAR AI Chat Box Welcome Layer Control Module
+     * Enterprise Architecture - Production Level
+     */
+    (() => {
+        'use strict';
 
-    // ENVIRONMENT-AWARE INDUSTRIAL NAVIGATION ENGINE (Resolves 404 Errors)
-    // Directly binds the click event handlers to your navbar and dashboard button IDs
-    document.addEventListener("DOMContentLoaded", () => {
-        // Core Dashboard Action Buttons
-        document.getElementById('exploreMoreBtn')?.addEventListener('click', () => {
-            const currentUser = sessionStorage.getItem('haganar_user') || 'Developer';
-            alert('Welcome ' + currentUser + '! You are now accessing the main HAGANAR platform. More features coming soon.');
-        });
-        
-        document.getElementById('viewProfileBtn')?.addEventListener('click', () => {
-            window.location.href = 'profile.html';
-        });
+        const ACTIVE_USER = sessionStorage.getItem('haganar_user') || 'Authorized User';
 
-        // Universal Navigation Bar Logout Button
-        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (confirm('Are you sure you want to logout?')) {
-                sessionStorage.clear();
-                window.location.href = 'index.html';
-            }
-        });
-    });
+        const SELECTORS = {
+            chatContainer: document.getElementById('chat-messages') || document.getElementById('chatMessages'),
+            inputField: document.getElementById('user-input') || document.getElementById('chatInput'),
+            triggerBtn: document.getElementById('send-btn') || document.getElementById('sendBtn'),
+            exploreBtn: document.getElementById('exploreMoreBtn'),
+            profileBtn: document.getElementById('viewProfileBtn'),
+            logoutBtn: document.getElementById('logoutBtn')
+        };
 
-    // Core variables mapping cleanly to your interface glass canvas element nodes
-    const chatBox = document.getElementById('chat-messages') || document.getElementById('chatMessages');
-    const userInput = document.getElementById('user-input') || document.getElementById('chatInput');
-    const sendBtn = document.getElementById('send-btn') || document.getElementById('sendBtn');
-
-    // Helper to render user and ai chat nodes smoothly onto your layout view
-    function appendMessage(text, sender) {
-        if (!chatBox) return;
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}-message`;
-        messageDiv.innerText = text;
-        chatBox.appendChild(messageDiv);
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-
-    // ENVIRONMENT-AWARE DYNAMIC AI CLIENT PIPELINE (Resolves AI Server Stutter)
-    async function handleChatSubmission() {
-        if (!userInput) return;
-        const messageText = userInput.value.trim();
-        if (!messageText) return;
-
-        // Print user statement to the panel immediately
-        appendMessage(messageText, 'user');
-        userInput.value = '';
-
-        // Auto-detect hosting platform infrastructure
-        const isStaticDeployment = window.location.hostname.includes('github.io');
-        
-        // Dynamic URL configuration: Uses Render link on GitHub Pages, absolute path locally
-        const BACKEND_URL = isStaticDeployment ? 'https://haganar-backend.onrender.com' : '';
-
-        // Native Full-Stack Live Node Pipeline (Routes dynamically based on deployment tier)
-        try {
-            const response = await fetch(`${BACKEND_URL}/api/chat`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: messageText })
+        const configureNavigationEngine = () => {
+            SELECTORS.exploreBtn?.addEventListener('click', () => {
+                alert(`Welcome ${ACTIVE_USER}! You are accessing the secure main HAGANAR platform core matrix.`);
             });
-            const data = await response.json();
             
-            if (data.reply) {
-                appendMessage(data.reply, 'ai');
-            } else {
-                appendMessage("Sorry, I encountered an error tracking that path.", 'ai');
-            }
-        } catch (error) {
-            console.error("Cloud full-stack engine bridge offline:", error);
-            appendMessage("Could not establish communication with the AI server.", 'ai');
-        }
-    }
+            SELECTORS.profileBtn?.addEventListener('click', () => {
+                window.location.href = 'profile.html';
+            });
 
-    // Trigger handlers securely on click or when user clicks Enter key
-    sendBtn?.addEventListener('click', handleChatSubmission);
-    userInput?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            handleChatSubmission();
-        }
-    });
+            SELECTORS.logoutBtn?.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (confirm('Are you sure you want to initialize secure session termination?')) {
+                    sessionStorage.clear();
+                    window.location.href = 'index.html';
+                }
+            });
+        };
+
+        const renderMessageBubble = (content, identity) => {
+            if (!SELECTORS.chatContainer) return null;
+
+            const bubble = document.createElement('div');
+            bubble.className = `message ${identity}-message`;
+            bubble.innerText = content;
+
+            SELECTORS.chatContainer.appendChild(bubble);
+            SELECTORS.chatContainer.scrollTop = SELECTORS.chatContainer.scrollHeight;
+            return bubble;
+        };
+
+        const dispatchStreamPipeline = async () => {
+            if (!SELECTORS.inputField) return;
+
+            const contentQuery = SELECTORS.inputField.value.trim();
+            if (!contentQuery) return;
+
+            // Commit user speech matrix instantly to the right side viewport layout
+            renderMessageBubble(contentQuery, 'user');
+            SELECTORS.inputField.value = '';
+
+            // Inject system load state matrix array bubble on the left side viewport layout
+            const aiLoadingBubble = renderMessageBubble('Querying neural framework pathways...', 'ai');
+
+            const isCloudHub = window.location.hostname.includes('github.io');
+            const ROUTE_ENDPOINT = isCloudHub ? 'https://haganar-backend.onrender.com' : '';
+
+            try {
+                const apiResponse = await fetch(`${ROUTE_ENDPOINT}/api/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ message: contentQuery, text: contentQuery })
+                });
+
+                if (!apiResponse.ok) {
+                    throw new Error(`Cloud transaction interface mapping exception: ${apiResponse.status}`);
+                }
+
+                const extractedData = await apiResponse.json();
+                
+                if (aiLoadingBubble) {
+                    aiLoadingBubble.innerText = extractedData.reply || extractedData.text || extractedData.message || "Failed to parse connection stream.";
+                }
+            } catch (executionError) {
+                console.error("Secure Data Transfer Pipe Offline Failure:", executionError);
+                if (aiLoadingBubble) {
+                    aiLoadingBubble.innerText = "Could not establish communication with the AI server infrastructure.";
+                }
+            } finally {
+                if (SELECTORS.chatContainer) {
+                    SELECTORS.chatContainer.scrollTop = SELECTORS.chatContainer.scrollHeight;
+                }
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            configureNavigationEngine();
+
+            SELECTORS.triggerBtn?.addEventListener('click', dispatchStreamPipeline);
+            SELECTORS.inputField?.addEventListener('keypress', (keyEvent) => {
+                if (keyEvent.key === 'Enter') {
+                    dispatchStreamPipeline();
+                }
+            });
+        });
+    })();
 </script>
 </body>
 </html>
