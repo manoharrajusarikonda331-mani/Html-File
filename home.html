@@ -444,10 +444,10 @@
         if (!chatBox) return null;
         const msgDiv = document.createElement('div');
         
-        // Fixes layout alignment: Maps 'user' to right-side styles, 'agent'/'ai' to left-side styles
-        msgDiv.classList.add('message', sender);
-        
+        // Maps 'user' class to right side, and 'agent' or 'ai' to left side
+        msgDiv.className = `message ${sender}`;
         msgDiv.textContent = text;
+        
         chatBox.appendChild(msgDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
         return msgDiv;
@@ -457,16 +457,19 @@
     if (chatForm) {
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (!userInput) return;
+            
+            // Explicitly verify the input text element exists
+            const inputField = document.getElementById('userInput') || document.getElementById('user-input');
+            if (!inputField) return;
 
-            const messageText = userInput.value.trim();
+            const messageText = inputField.value.trim();
             if (!messageText) return;
 
-            // Render User Message Node instantly on the RIGHT side
+            // 1. Render User Message Node instantly on the RIGHT side
             appendMessage(messageText, 'user');
-            userInput.value = '';
+            inputField.value = '';
 
-            // Render Pending AI Loading state bubble on the LEFT side
+            // 2. Render Pending AI Loading state bubble on the LEFT side
             const loadingDiv = appendMessage('System processing operational request...', 'agent');
 
             // Auto-detect hosting infrastructure profile environment
