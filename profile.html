@@ -562,18 +562,12 @@
         // Auto-detect hosting infrastructure profile environment
         const isStaticDeployment = window.location.hostname.includes('github.io');
 
-        if (isStaticDeployment) {
-            // High-fidelity local simulation fallback sequence for GitHub Pages hosting platforms
-            setTimeout(() => {
-                aiMessageDiv.textContent = 'Handshake verified. Profile workspace metrics are fully protected under security clearance levels.';
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 800);
-            return;
-        }
+        // Dynamic URL configuration: Use Render in production, absolute path in local testing
+        const BACKEND_URL = isStaticDeployment ? 'https://haganar-backend.onrender.com' : '';
 
-        // Native Full-Stack Live Node Pipeline (Runs natively on Localhost:3000)
+        // Native Full-Stack Live Node Pipeline (Routes dynamically based on environment)
         try {
-            const response = await fetch(window.location.hostname.includes('github.io') ? 'https://haganar-backend.onrender.com/api/chat' : '/api/chat', {
+            const response = await fetch(`${BACKEND_URL}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: messageText })
