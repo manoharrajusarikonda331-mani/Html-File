@@ -443,7 +443,10 @@
     function appendMessage(text, sender) {
         if (!chatBox) return null;
         const msgDiv = document.createElement('div');
-        msgDiv.classList.add('message', `${sender}-message`);
+        
+        // Fixes layout alignment: Maps 'user' to right-side styles, 'agent'/'ai' to left-side styles
+        msgDiv.classList.add('message', sender);
+        
         msgDiv.textContent = text;
         chatBox.appendChild(msgDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -459,11 +462,11 @@
             const messageText = userInput.value.trim();
             if (!messageText) return;
 
-            // Render User Message Node instantly
+            // Render User Message Node instantly on the RIGHT side
             appendMessage(messageText, 'user');
             userInput.value = '';
 
-            // Render Pending AI Loading state bubble
+            // Render Pending AI Loading state bubble on the LEFT side
             const loadingDiv = appendMessage('System processing operational request...', 'agent');
 
             // Auto-detect hosting infrastructure profile environment
