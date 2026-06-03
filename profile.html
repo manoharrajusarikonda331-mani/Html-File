@@ -502,9 +502,9 @@
         const activeUser = sessionStorage.getItem('haganar_user') || 'Authorized User';
         console.log(`HAGANAR Profile Session loaded for: ${activeUser}`);
 
-        // Navigation Axis Engine (Resolves Profile 404 Paths Perfectly)
+        // Navigation Axis Engine (Now routes directly to home.html)
         document.getElementById('workspaceBtn')?.addEventListener('click', () => {
-            window.location.href = 'welcome.html';
+            window.location.href = 'home.html';
         });
 
         document.getElementById('secureLogoutBtn')?.addEventListener('click', (e) => {
