@@ -444,8 +444,8 @@
         if (!chatBox) return null;
         const msgDiv = document.createElement('div');
         
-        // Maps 'user' class to right side, and 'agent' or 'ai' to left side
-        msgDiv.className = `message ${sender}`;
+        // Match the exact class framework used for your bubbles: 'user-message' and 'ai-message'
+        msgDiv.className = `message ${sender}-message`;
         msgDiv.textContent = text;
         
         chatBox.appendChild(msgDiv);
@@ -457,20 +457,17 @@
     if (chatForm) {
         chatForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Explicitly verify the input text element exists
-            const inputField = document.getElementById('userInput') || document.getElementById('user-input');
-            if (!inputField) return;
+            if (!userInput) return;
 
-            const messageText = inputField.value.trim();
+            const messageText = userInput.value.trim();
             if (!messageText) return;
 
-            // 1. Render User Message Node instantly on the RIGHT side
+            // 1. Render User Message Node instantly on the RIGHT side bubble
             appendMessage(messageText, 'user');
-            inputField.value = '';
+            userInput.value = '';
 
-            // 2. Render Pending AI Loading state bubble on the LEFT side
-            const loadingDiv = appendMessage('System processing operational request...', 'agent');
+            // 2. Render Pending AI Loading state bubble on the LEFT side bubble
+            const loadingDiv = appendMessage('System processing operational request...', 'ai');
 
             // Auto-detect hosting infrastructure profile environment
             const isStaticDeployment = window.location.hostname.includes('github.io');
