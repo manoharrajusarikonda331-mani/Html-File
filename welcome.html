@@ -525,24 +525,13 @@
 
         // Auto-detect hosting platform infrastructure
         const isStaticDeployment = window.location.hostname.includes('github.io');
+        
+        // Dynamic URL configuration: Uses Render link on GitHub Pages, absolute path locally
+        const BACKEND_URL = isStaticDeployment ? 'https://haganar-backend.onrender.com' : '';
 
-        if (isStaticDeployment) {
-            // High-fidelity client-side interactive simulation sequence for GitHub Pages hosting
-            setTimeout(() => {
-                const mockResponses = [
-                    `System Node Active. Hello ${activeUser}! Processing requested security parameters for the HAGANAR ecosystem matrix.`,
-                    "Cloud intelligence workspace boundaries are fully optimized. UI running safely in isolated static deployment mode.",
-                    "Handshake secure. To engage your live full-stack Gemini Pro API automation engine, execute 'node server.js' on your local development node."
-                ];
-                const chosenReply = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-                appendMessage(chosenReply, 'ai');
-            }, 800);
-            return;
-        }
-
-        // Native Full-Stack Live Node Pipeline (Runs seamlessly on Localhost:3000)
+        // Native Full-Stack Live Node Pipeline (Routes dynamically based on deployment tier)
         try {
-            const response = await fetch(window.location.hostname.includes('github.io') ? 'https://haganar-backend.onrender.com/api/chat' : '/api/chat', {
+            const response = await fetch(`${BACKEND_URL}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: messageText })
@@ -555,7 +544,7 @@
                 appendMessage("Sorry, I encountered an error tracking that path.", 'ai');
             }
         } catch (error) {
-            console.error("Local full-stack engine bridge offline:", error);
+            console.error("Cloud full-stack engine bridge offline:", error);
             appendMessage("Could not establish communication with the AI server.", 'ai');
         }
     }
