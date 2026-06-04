@@ -423,7 +423,7 @@ input {
 
     <script>
     /**
-     * @fileoverview HAGANAR Core Gateway Authentication & Particle Matrix
+     * @fileoverview HAGANAR Core Gateway Authentication & Premium Modal Engine
      * Enterprise Architecture - Production Level
      */
     (() => {
@@ -458,35 +458,124 @@ input {
             container.appendChild(fragment);
         };
 
-        // Form Presentation Helpers: Dynamic Feedback Banners
-        const displayLoginNotice = (messageText, type = 'error') => {
-            // Check for existing notices to prevent layout stack duplication
-            const existingNotice = document.querySelector('.login-notice');
-            if (existingNotice) existingNotice.remove();
+        /**
+         * Generates and triggers a separate premium glassmorphic interface modal overlay
+         * @param {string} headingTitle - Strict error class designation header
+         * @param {string} detailedMessage - Explicit authentication exception message
+         */
+        const triggerSecurityModal = (headingTitle, detailedMessage) => {
+            // Remove any existing modal instances to avoid node pollution
+            const existingModal = document.getElementById('securityModalOverlay');
+            if (existingModal) existingModal.remove();
 
-            const noticeDiv = document.createElement('div');
-            noticeDiv.className = `login-notice ${type}-notice`;
-            
-            // Standardizing premium, clean industrial presentation styles
-            noticeDiv.style.background = type === 'error' ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)';
-            noticeDiv.style.border = type === 'error' ? '1px solid #ef4444' : '1px solid #10b759';
-            noticeDiv.style.color = type === 'error' ? '#fca5a5' : '#a7f3d0';
-            noticeDiv.style.padding = '12px';
-            noticeDiv.style.borderRadius = '8px';
-            noticeDiv.style.marginBottom = '20px';
-            noticeDiv.style.textAlign = 'center';
-            noticeDiv.style.fontSize = '14px';
-            noticeDiv.style.fontFamily = 'sans-serif';
-            noticeDiv.style.backdropFilter = 'blur(4px)';
-            noticeDiv.textContent = messageText;
+            // Create Modal Backdrop Overlay Canvas
+            const overlay = document.createElement('div');
+            overlay.id = 'securityModalOverlay';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100vw';
+            overlay.style.height = '100vh';
+            overlay.style.backgroundColor = 'rgba(10, 15, 30, 0.7)';
+            overlay.style.backdropFilter = 'blur(12px)';
+            overlay.style.webkitBackdropFilter = 'blur(12px)';
+            overlay.style.display = 'flex';
+            overlay.style.justifyContent = 'center';
+            overlay.style.alignItems = 'center';
+            overlay.style.zIndex = '99999';
+            overlay.style.animation = 'fadeIn 0.3s ease-out forwards';
 
-            const formElement = document.getElementById('loginForm');
-            if (formElement) {
-                formElement.parentNode.insertBefore(noticeDiv, formElement);
-            }
+            // Create Premium Glassmorphism Dialog Panel Container
+            const modalBox = document.createElement('div');
+            modalBox.style.width = '90%';
+            modalBox.style.maxWidth = '420px';
+            modalBox.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))';
+            modalBox.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+            modalBox.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+            modalBox.style.borderRadius = '16px';
+            modalBox.style.padding = '30px';
+            modalBox.style.textAlign = 'center';
+            modalBox.style.fontFamily = 'system-ui, -apple-system, sans-serif';
+            modalBox.style.transform = 'scale(0.9)';
+            modalBox.style.animation = 'scaleUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards';
+
+            // Create Animated Guard Header Icon Vector
+            const iconContainer = document.createElement('div');
+            iconContainer.style.marginBottom = '18px';
+            iconContainer.innerHTML = `
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" fill="rgba(239, 68, 68, 0.15)" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8V12" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 16H12.01" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            `;
+
+            // Title Header String Node
+            const titleNode = document.createElement('h3');
+            titleNode.textContent = headingTitle;
+            titleNode.style.color = '#f87171';
+            titleNode.style.fontSize = '20px';
+            titleNode.style.margin = '0 0 12px 0';
+            titleNode.style.fontWeight = '600';
+            titleNode.style.letterSpacing = '0.5px';
+
+            // Detailed Exception Narrative Description Node
+            const messageNode = document.createElement('p');
+            messageNode.textContent = detailedMessage;
+            messageNode.style.color = '#cbd5e1';
+            messageNode.style.fontSize = '14px';
+            messageNode.style.lineHeight = '1.6';
+            messageNode.style.margin = '0 0 24px 0';
+
+            // Premium Interactive Action Dismissal Interface Button
+            const dismissBtn = document.createElement('button');
+            dismissBtn.textContent = 'Acknowledge & Retry';
+            dismissBtn.style.width = '100%';
+            dismissBtn.style.padding = '12px';
+            dismissBtn.style.background = 'linear-gradient(135deg, #ef4444, #b91c1c)';
+            dismissBtn.style.border = 'none';
+            dismissBtn.style.borderRadius = '8px';
+            dismissBtn.style.color = '#ffffff';
+            dismissBtn.style.fontSize = '14px';
+            dismissBtn.style.fontWeight = '600';
+            dismissBtn.style.cursor = 'pointer';
+            dismissBtn.style.transition = 'all 0.2s ease';
+            dismissBtn.style.boxShadow = '0 4px 15px rgba(239, 68, 68, 0.3)';
+
+            // Interactive Button Hover State Logic Mutations
+            dismissBtn.addEventListener('mouseenter', () => dismissBtn.style.opacity = '0.9');
+            dismissBtn.addEventListener('mouseleave', () => dismissBtn.style.opacity = '1');
+
+            // Dismiss Action Sequence logic
+            const closeModal = () => {
+                overlay.style.animation = 'fadeOut 0.2s ease-out forwards';
+                setTimeout(() => overlay.remove(), 200);
+            };
+
+            dismissBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+            // Assemble Modal DOM Sub-Tree Nodes
+            modalBox.appendChild(iconContainer);
+            modalBox.appendChild(titleNode);
+            modalBox.appendChild(messageNode);
+            modalBox.appendChild(dismissBtn);
+            overlay.appendChild(modalBox);
+            document.body.appendChild(overlay);
         };
 
-        // Core Identity Processing Gateway
+        // Inject Required Animation Rules Directly into Document Tree
+        const injectStyles = () => {
+            const styleNode = document.createElement('style');
+            styleNode.textContent = `
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+                @keyframes scaleUp { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+            `;
+            document.head.appendChild(styleNode);
+        };
+
+        // Core Identity Processing Gateway Matrix
         const handleGatewaySubmission = (event) => {
             event.preventDefault();
 
@@ -499,9 +588,12 @@ input {
             const enteredUsername = usernameInput ? usernameInput.value.trim() : '';
             const enteredPassword = passwordInput ? passwordInput.value : '';
 
-            // Secure Identity Parameter Lock Verification
-            if (enteredUsername === 'haganar' && enteredPassword === 'admin') {
-                // Set authenticated states inside memory tracking buffers
+            // Strict Validation Logic Block Configuration
+            const isUsernameCorrect = (enteredUsername === 'haganar');
+            const isPasswordCorrect = (enteredPassword === 'admin');
+
+            if (isUsernameCorrect && isPasswordCorrect) {
+                // Set authenticated persistence states inside memory tracking buffers
                 sessionStorage.setItem('isLoggedIn', 'true');
                 sessionStorage.setItem('haganar_user', enteredUsername);
 
@@ -513,16 +605,22 @@ input {
                     btnText.innerHTML = '✔ Success! Access Granted';
                 }
 
-                // Smoothly route client vector into the application layer
+                // Smoothly route client vector into the application layer workspace
                 setTimeout(() => {
                     window.location.href = 'welcome.html';
                 }, 1200);
 
             } else {
-                // Identity Verification Refused: Display industrial error layout interface notice
-                displayLoginNotice('Your Username & Password is Wrong Try Again.');
+                // Determine the precise parameters configuration error mismatch type
+                if (!isUsernameCorrect && !isPasswordCorrect) {
+                    triggerSecurityModal('ACCESS DENIED', 'Both Username & Password fields are invalid. Please check your credentials and try again.');
+                } else if (!isUsernameCorrect) {
+                    triggerSecurityModal('INVALID USERNAME', 'The security framework does not recognize that Username. Verification failed.');
+                } else {
+                    triggerSecurityModal('INVALID PASSWORD', 'The password input sequence is incorrect. Gateway entry rejected.');
+                }
                 
-                // Clear password field to reset authentication process state
+                // Reset password input container structure field gracefully
                 if (passwordInput) passwordInput.value = '';
             }
         };
@@ -572,6 +670,7 @@ input {
 
         // Initialize Core Component Execution Vectors
         document.addEventListener('DOMContentLoaded', () => {
+            injectStyles();
             createParticles();
             initializePasswordToggle();
 
