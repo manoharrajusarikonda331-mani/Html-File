@@ -51,13 +51,15 @@ The HAGANAR Intelligent Network ecosystem operates on a highly scalable, decoupl
 
 **🗺️ Decoupled Full-Stack Architecture Mapping Grid**
 
-`\`\`\text
+`\`\`text
 [ CLIENT FRONTEND INTERFACE ]                [ CLOUD EXPRESS ENGINE ]             [ AI COGNITIVE CORE ]
  (Hosted via GitHub Pages CDN)                (Hosted via Render Services)         (Google Cloud Framework)
   ├── home.html    ─────(Secure JSON)─────►      /api/chat Endpoint    ─────►        Gemini Pro Model 
   ├── welcome.html ◄────(Stream Link)─────┘       • Strict CORS Lock                 • System Instructions
   └── profile.html                                • Injected API Key   ◄────         • Automated Response 
-  `\`\`\
+  `\`\`
+
+---
 
 ## 📦 Local Installation & Workspace Replication Setup
 For engineering review, testing, or expanding the development tree natively on your machine:
