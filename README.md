@@ -51,13 +51,11 @@ The HAGANAR Intelligent Network ecosystem operates on a highly scalable, decoupl
 
 **🗺️ Decoupled Full-Stack Architecture Mapping Grid**
 
-`\`\`text
-[ CLIENT FRONTEND INTERFACE ]                [ CLOUD EXPRESS ENGINE ]             [ AI COGNITIVE CORE ]
- (Hosted via GitHub Pages CDN)                (Hosted via Render Services)         (Google Cloud Framework)
-  ├── home.html    ─────(Secure JSON)─────►      /api/chat Endpoint    ─────►        Gemini Pro Model 
-  ├── welcome.html ◄────(Stream Link)─────┘       • Strict CORS Lock                 • System Instructions
-  └── profile.html                                • Injected API Key   ◄────         • Automated Response 
-  `\`\`
+| Operational Tier | Infrastructure Hosting Matrix | Core Process Stack & Responsibilities | Data Interchange & Pipelines |
+| :--- | :--- | :--- | :--- |
+| 🌐 **Edge Frontend** | **GitHub Pages CDN** <br> ─── `Static Edge Distribution` | • **`home.html`** (Intelligence Workspace Console) <br> • **`welcome.html`** (Onboarding Portal Layout) <br> • **`profile.html`** (Identity Management Core) | Sends secure payload parameters via asynchronous `JSON POST` pipelines. <br><br> 🌟 *Aesthetic Layer: Fluid Glassmorphism Matrix* |
+| ⚡ **API Cloud Gateway** | **Render Container Compute Cluster** <br> ─── `Virtual Linux Runtime` | • **`/api/chat` Route Controller** <br> • Express Cross-Origin Resource Sharing (`CORS`) Lock <br> • Automated System Headers Validation Sequence | Manages inbound context streams, enforces request sanity, and injects private authorization tokens. |
+| 🧠 **Cognitive AI Core** | **Google Cloud Platform Infrastructure** <br> ─── `GenAI Framework Suite` | • **Gemini Pro Neural Assistant Engine** <br> • System Persona Instruction Matrices <br> • Asynchronous Context Processing Loops | Compiles analytical prompts, generates organic intelligence strings, and streams response objects back to the gateway. |
 
 ---
 
