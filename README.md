@@ -1,63 +1,47 @@
 # 🔒 HAGANAR — Full-Stack AI Chat Assistant & Glassmorphism Portal
 
-> **Production Status:** Ready for Deployment  
-> **Core Architecture:** Node.js Express Backend Engine × Google GenAI (Gemini SDK)  
-> **Design Framework:** Ultra-Modern Glassmorphic UI Matrix
+> **Production Live URL:** [https://manoharrajusarikonda331-mani.github.io/Html-File/](https://manoharrajusarikonda331-mani.github.io/Html-File/)  
+> **Cloud API Cluster:** Hosted on Render Cloud Infrastructure (`https://haganar-backend.onrender.com`)  
+> **Core Architecture:** Node.js Express Decoupled Backend Engine × Google GenAI (Gemini Pro SDK)  
+> **Design Framework:** Ultra-Modern Fluid Glassmorphic UI Matrix
 
-A highly responsive, visually striking full-stack web application featuring an advanced **Glassmorphism UI**, secure login gate validation, and a live conversation module seamlessly powered by an Express backend server and the **Google GenAI SDK (Gemini Pro)**.
-
----
-
-## 🚀 Key Architectural Features
-
-* **⚡ Live AI Agent Integration:** Communicate dynamically with a custom HAGANAR AI agent context pipeline via asynchronous backend server endpoints.
-* **🔮 Premium Glassmorphism UI:** Translucent containers featuring sophisticated WebKit backdrop-filter layers, optimized blur depths, and smooth interactive micro-movements.
-* **📐 Dual-Column Grid Layouts:** Sleek split-screen identity gates driven by CSS Flexbox properties that scale perfectly across multiple viewport breakpoints.
-* **🟢 Dynamic Success State Feedback:** Submit button interceptors that morph instantly into a glowing emerald success state upon validation.
-* **✨ Atmospheric Context Elements:** Engaging background ambiance featuring automated, hardware-accelerated particle-generating canvas algorithms.
+A highly responsive, visually striking full-stack web application featuring an advanced **Glassmorphism UI**, secure state-driven identity validation gates, and an intelligent multi-page chat workspace seamlessly connected to a cloud-hosted Express API gateway running the **Google GenAI SDK (Gemini Pro)**.
 
 ---
 
-## 🛠️ Enterprise Tech Stack
+## 🌐 Live Production Access Links
 
-| Layer | Technologies & Ecosystem Utilities |
+The HAGANAR Intelligent Network ecosystem operates on a highly scalable, decoupled cloud hosting matrix:
+
+* **🚀 Public User Interface Portal:** [Launch HAGANAR Web Workspace](https://manoharrajusarikonda331-mani.github.io/Html-File/) (Hosted via GitHub Pages edge nodes)
+* **⚡ Operational Backend Gateway:** [HAGANAR API Hub Node](https://haganar-backend.onrender.com) (Deployed via Render virtual container runtimes)
+
+---
+
+## 🚀 Key Architectural Features & Upgrades
+
+* **⚡ Live Decoupled AI Integration:** Communicates dynamically over the public internet via secure, cross-origin asynchronous pipeline endpoints (`Fetch API`).
+* **🔒 Production Environment Key Isolation:** Fully armored security layers utilizing cloud-injected system variables (`process.env.GEMINI_API_KEY`) ensuring private keys are never exposed in client scripts.
+* **🌐 Enterprise CORS Implementation:** Explicit Cross-Origin Resource Sharing rules built right into the Express middleware pipeline to safely restrict API access to verified frontend origins.
+* **🔮 Premium Glassmorphism UI Matrix:** Translucent responsive container layouts featuring customized WebKit backdrop-filter layers, calculated blur depths, and smooth micro-interactions.
+* **📐 Dual-Column Grid System:** Sleek split-screen responsive login templates driven by modern CSS Flexbox and media breakpoints that adapt fluidly across mobile, tablet, and desktop viewports.
+* **🛡️ Client-Side Guard Validation Elements:** Interactive script-level form interceptors that enforce security input verification before granting user access tokens.
+* **✨ Accelerated Canvas Particles:** Engaging background visual ambience powered by automated, hardware-accelerated fluid particle-generating scripts.
+
+---
+
+## 🛠️ Enterprise Tech Stack Matrix
+
+| Architectural Layer | Technologies & Ecosystem Utilities |
 | :--- | :--- |
-| **Frontend Platform** | `HTML5 (Semantic Structures)` • `CSS3 (Multi-stop Gradients, Flexbox Grid)` • `JavaScript (Asynchronous Fetch API, DOM Architecture)` |
-| **Backend Runtime** | `Node.js (v24.16.0 LTS)` |
-| **Server Framework** | `Express.js (High-performance Routing & Static Middleware)` |
-| **AI Processing Hub** | `Google GenAI SDK (@google/genai)` |
-| **Security & Config** | `Dotenv (Secure API Key Isolation Pipelines)` |
+| **Edge Frontend Client** | `HTML5 (Semantic Markups)` • `CSS3 (Multi-stop Gradients, Glassmorphism Viewports)` • `JavaScript ES6 (Dynamic DOM Architecture, Fetch API API Control)` |
+| **Production Cloud Hosting** | `GitHub Pages (Frontend Content Distribution Network)` • `Render Web Services (Backend Compute Node Cluster)` |
+| **Backend API Runtime** | `Node.js (v24.16.0 LTS Execution Layer)` |
+| **Server Engine Framework** | `Express.js (CORS Middleware, Route Controllers, Header Management)` |
+| **AI Neural Processing Hub** | `Google GenAI SDK (@google/genai)` |
+| **Configuration Utilities** | `Dotenv (Local Variable Isolation Pipelines)` • `CORS Node Module` |
 
 ---
-
-## 📦 Local Installation & Deployment Setup
-
-### 1. Clone Project Environment
-Pull the latest workspace files into your local directory:
-\`\`\`bash
-git clone [https://github.com/manoharrajusarikonda331-mani/Html-File.git](https://github.com/manoharrajusarikonda331-mani/Html-File.git)
-cd "Html File"
-\`\`\`
-
-### 2. Provision Packages 
-Install the necessary Node module dependencies:
-\`\`\`bash
-npm install
-\`\`\`
-
-### 3. Configure Security Parameters
-Create a secure `.env` file in the root project directory and isolate your private access key:
-\`\`\`env
-GEMINI_API_KEY=your_actual_google_gemini_api_key_here
-\`\`\`
-
-### 4. Boot Up the Application Server
-Launch the Node runtime listener inside your terminal workspace:
-\`\`\`bash
-node server.js
-\`\`\`
-
-The backend engine will report active status on http://localhost:3000. Open this link in your browser to interact with HAGANAR live!
 
 ## 📷 System Interface & Architecture Preview
 
@@ -65,11 +49,48 @@ The backend engine will report active status on http://localhost:3000. Open this
 
 ![Login Page Preview](preview.png)
 
-**🗺️ Full-Stack Ecosystem Map**
+**🗺️ Decoupled Full-Stack Architecture Mapping Grid**
 
-[Browser Frontend Layouts]             [Node.js Express Server]         [Google Cloud Node]
-   ├── welcome.html     ──(Fetch API)──►    /api/chat Endpoint  ──────►   Gemini Pro API Engine
-   └── profile.html     ──(JSON POST)──►    (.env Key Guard)   ◄──────   Live Agent Response
+`\`\`\text
+[ CLIENT FRONTEND INTERFACE ]                [ CLOUD EXPRESS ENGINE ]             [ AI COGNITIVE CORE ]
+ (Hosted via GitHub Pages CDN)                (Hosted via Render Services)         (Google Cloud Framework)
+  ├── home.html    ─────(Secure JSON)─────►      /api/chat Endpoint    ─────►        Gemini Pro Model 
+  ├── welcome.html ◄────(Stream Link)─────┘       • Strict CORS Lock                 • System Instructions
+  └── profile.html                                • Injected API Key   ◄────         • Automated Response 
+  `\`\`\
+
+## 📦 Local Installation & Workspace Replication Setup
+For engineering review, testing, or expanding the development tree natively on your machine:
+
+### 1. Clone Project Environment
+Pull the latest master repository workspace files into your local directory:
+\`\`\`bash
+git clone [https://github.com/manoharrajusarikonda331-mani/Html-File.git](https://github.com/manoharrajusarikonda331-mani/Html-File.git)
+cd "Html-File"
+\`\`\`
+
+### 2. Provision Native Node Modules
+Install the necessary system dependencies documented inside the project manifests:
+\`\`\`bash
+npm install
+\`\`\`
+
+### 3. Configure Local Secret Pipelines
+Create a secure `.env` file in the root directory to mirror the cloud environment configurations:
+\`\`\`env
+PORT=3000
+GEMINI_API_KEY=your_private_google_gemini_api_key_here
+\`\`\`
+
+### 4. Run the Development Server
+Launch the Node execution listener inside your terminal workspace:
+\`\`\`bash
+node server.js
+\`\`\`
+
+The console will report active connectivity states. Open http://localhost:3000 inside your browser environment to test the full-stack pipeline loops natively.
+
+---
 
 ## 👤 Core Architect & Lead Engineer
 
