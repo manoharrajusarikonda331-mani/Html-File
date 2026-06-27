@@ -64,29 +64,29 @@ For engineering review, testing, or expanding the development tree natively on y
 
 ### 1. Clone Project Environment
 Pull the latest master repository workspace files into your local directory:
-\`\`\`bash
+```bash
 git clone [https://github.com/manoharrajusarikonda331-mani/Html-File.git](https://github.com/manoharrajusarikonda331-mani/Html-File.git)
 cd "Html-File"
-\`\`\`
+```
 
 ### 2. Provision Native Node Modules
 Install the necessary system dependencies documented inside the project manifests:
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ### 3. Configure Local Secret Pipelines
 Create a secure `.env` file in the root directory to mirror the cloud environment configurations:
-\`\`\`env
+```env
 PORT=3000
 GEMINI_API_KEY=your_private_google_gemini_api_key_here
-\`\`\`
+```
 
 ### 4. Run the Development Server
 Launch the Node execution listener inside your terminal workspace:
-\`\`\`bash
+```bash
 node server.js
-\`\`\`
+```
 
 The console will report active connectivity states. Open http://localhost:3000 inside your browser environment to test the full-stack pipeline loops natively.
 
